@@ -1,0 +1,8 @@
+# directorio de netbeans
+nbproject/
+
+# archivos genericos
+*~
+*.lock
+*.swp
+*.out
