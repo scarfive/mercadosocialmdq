@@ -1,0 +1,789 @@
+/*
+    estilo.css
+    
+    Hoja de estilos generales
+    Define posicion, tamano, color y fuente de los elementos
+    de la interfaz grafica
+*/
+/* 
+    Created on : 15/04/2015, 15:11:21
+    Author     : Juan Manuel Scarciofolo
+    License    : GPLv3
+*/
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*
+    CONTENEDORES
+*/
+
+.barra {
+    padding: 2%;
+    width: 96%;
+}
+
+#contenedor {
+    margin: 0px auto;
+    min-height: 200px;
+    width: 100%;
+}
+
+.lateral {
+    min-height: 200px;
+    width: 16%;
+    padding: 2%;
+}
+
+#lateral_izq {
+    float: left;
+}
+
+#lateral_der {
+    float: right;
+}
+
+#principal {
+    float: left;
+    min-height: 200px;
+    padding: 2% 0%;
+    overflow-y: auto;
+    width: 76%;
+}
+
+#pie {
+    background-color: #000;
+    min-height: 200px;
+    padding: 2% 0%;
+    width: 100%;
+}
+
+.cuadro_opciones {
+    
+}
+
+.barra_opciones {
+    float: left;
+    height: 50px;
+    margin: 2em 0em 1em;
+    width: 100%;
+}
+
+
+
+/*
+    DIMENSIONES DE LOS ELEMENTOS
+*/
+
+a {
+    text-decoration: none;
+}
+
+h3 {
+    padding: 1em;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    cursor: pointer;
+    line-height: 1.6em;
+}
+
+li a {
+    display: block;
+    padding: 1em;
+}
+
+li img {
+    vertical-align: bottom;
+    margin-right: 1em;
+}
+
+p {
+    margin: 10px 0px;
+}
+
+.img_preview {
+    border: 1px solid #eaedf1;
+    height: 100px;
+    width: 100px;
+}
+
+.img_preview_left {
+    float: left;
+    margin-right: 8px;
+    vertical-align: top;
+}
+
+.img_preview_cell {
+    border: 2px solid #e4e8ed;
+    border-radius: 4px;
+    float: left;
+    height: 256px;
+    margin: 0px 0px 10px;
+    width: 256px;
+}
+
+.img_view {
+    height: 265px;
+    margin: 1.8em 1em 0em 0em;
+    width: 265px;
+}
+
+.publicacion {
+    
+}
+
+.publicacion p {
+    margin: 1em 0em;
+}
+
+.publicacion .precio {
+    text-align: left;
+    margin: 0em 0em 0.4em;
+}
+
+.publicacion .precio_pie {
+    float: left;
+    margin: -3em 0em 2em;
+    text-align: left;
+}
+
+.vista_publicacion {
+    border: 1px solid #eff1f3;
+    border-radius: 1em;
+    padding: 3%;
+}
+
+.publicacion_miniatura {
+    border: 1px solid #e4e8ed;
+    margin: 1em 0em;
+    min-height: 120px;
+    padding: 1em 1em 2em 1em ;
+    width: 66%;
+}
+
+p.publicacion_info {
+    margin: 0.6em 0.2em;
+}
+
+.publicacion_detalles {
+    float: left;
+    margin: 0.6em 0em 0em 0em;
+    width: 100%;
+}
+
+.publicacion_detalles ul {
+    list-style-type: none;
+}
+
+.publicacion_detalles ul li {
+    background-color: transparent;
+    float: left;
+    margin: 0em 1.6em 0em 0em;
+}
+
+.publicacion_detalles ul li a:hover {
+    color: #323a45;
+}
+
+.publicacion_precio {
+    float: left;
+    width: 100%;
+}
+
+.publicacion_precio .precio:before {
+    color: #9ea7b3;
+    content: '$ ';
+    font-size: 0.5em;
+}
+
+.indicador_cantidad {
+    border-radius: 50%;
+    float: right;
+    height: 22px;
+    text-align: center;
+    width: 22px;
+}
+
+
+
+/*
+    COLORES
+*/
+
+* {
+    color: #666f7b;
+}
+
+body {
+    background-color: #eaedf1;
+}
+
+.barra {
+    background-color: #f27935;
+}
+
+.celda_producto {
+    background-color: #fafafa;
+}
+
+h3 {
+    background-color: #323a45;
+    color: #fff;
+}
+
+li {
+    background-color: #fff;
+    border-bottom: 1px solid #eaedf1;
+}
+
+li:hover {
+    background-color: #9ea7b3;
+    color: #fff;
+}
+
+li a:hover {
+    color: #fff;
+}
+
+a:hover {
+    color: #323a45;
+}
+
+#barra_encabezado a {
+    color: #fff;
+}
+
+#menu_encabezado a:hover {
+    color: #323a45;
+}
+
+.listado .celda_opciones a {
+    color: #9ea7b3;
+}
+
+.listado .celda_opciones a:hover {
+    color: #323a45;
+}
+
+.publicacion {
+    
+}
+
+.publicacion h1 {
+    color: #00afd1;
+}
+
+.publicacion p {
+    color: #323a45;
+}
+
+.publicacion .precio {
+    color: #1fbba6;
+}
+
+.publicacion .precio_pie {
+    color: #9ea7b3;
+}
+
+.vista_publicacion, .publicacion_miniatura {
+    background-color: #fafafa;
+}
+
+.publicacion_miniatura h2 {
+    color: #f27935;
+}
+
+.publicacion .publicacion_info {
+    color: #666f7b;
+}
+
+.indicador_cantidad {
+    background-color: #f27935;
+    color: #fff;
+}
+
+
+
+
+/*
+    FORMATO DE TEXTO
+*/
+
+* {
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    font-size: 1.6em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 0.9em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+li {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#barra_encabezado a {
+    font-size: 1.8em;
+}
+
+#menu_encabezado a {
+    font-size: 0.8em;
+}
+
+.formulario p {
+    font-weight: bold;
+}
+
+.listado .celda_info {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.listado .celda_opciones {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.publicacion h1 {
+    font-size: 2.6em;
+    font-weight: normal;
+}
+
+.publicacion p {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.publicacion .precio {
+    font-size: 5.2em;
+    font-weight: normal;
+}
+
+.publicacion .precio_pie {
+    font-size: 0.8em;
+}
+
+.publicacion .publicacion_info {
+    font-size: 0.8em;
+}
+
+.publicacion_detalles {
+    font-size: 0.8em;
+}
+
+
+
+/*
+    ENCABEZADO
+*/
+
+#barra_encabezado a {
+    display: inline-block;
+    line-height: 40px;
+}
+
+#barra_encabezado a img {
+    margin-right: 10px;
+    padding: 5px;
+    vertical-align: bottom;
+}
+
+#menu_encabezado {
+    float: right;
+}
+
+#menu_encabezado a {
+    padding: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+    FORMULARIOS
+*/
+
+.cuadro_formulario {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    margin: 80px auto 20px;
+    min-height: 300px;
+}
+
+.formulario_angosto {
+    width: 420px;
+}
+
+.formulario_ancho {
+    width: 512px;
+}
+
+.personaje_saludo {
+    background-image: url('img/chico.png');
+}
+
+.texto_formulario {
+    float: right;
+    width: 265px;
+}
+
+.texto_formulario_ancho {
+    width: 360px;
+}
+
+.texto_formulario a {
+    font-size: 0.8em;
+}
+
+.formulario {
+    float: right;
+}
+
+.formulario p {
+    margin-top: 1em;
+}
+
+#principal .formulario {
+    float: left;
+    min-height: 300px;
+}
+
+
+
+/*
+    ELEMENTOS INTERFAZ
+*/
+
+.ui-campo {
+    background-color: #fff;
+    background-position: 10px 8px;
+    background-repeat: no-repeat;
+    border: none;
+    border-bottom: 1px solid #eaedf1;
+    display: block;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 10px 10px 10px 35px;
+    width: 220px;
+}
+
+.ui-campo-texto {
+    height: 300px;
+    resize: none;
+}
+
+.ui-combo {
+    width: 265px;
+}
+
+.ui-enlace {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    padding: 5px;
+}
+
+.ui-enlace-icono {
+    display: block;
+    padding-left: 25px;
+}
+
+a.ui-boton {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: center;
+    width: 165px;
+}
+
+.ui-boton {
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px 0px;
+    padding: 10px 50px;
+    width: 265px;
+}
+
+.ui-boton-naranja {
+    background-color: #f27935;
+}
+
+.ui-boton-naranja:hover {
+    background-color: #f28300;
+}
+
+.ui-boton-naranja:active {
+    background-color: #f26d00;
+}
+
+.ui-boton-azul {
+    background-color: #00afd1;
+}
+
+.ui-boton-azul:hover {
+    background-color: #00b8db;
+}
+
+.ui-boton-azul:active {
+    background-color: #00a6c6;
+}
+
+.ui-boton-verde {
+    background-color: #1fbba6;
+}
+
+.ui-boton-verde:hover {
+    background-color: #23c9b4;
+}
+
+.ui-boton-verde:active {
+    background-color: #25ab99;
+}
+
+.ui-mini-boton {
+    background-color: #00afd1;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9em;
+    margin-left: 2px;
+    padding: 0.2em 1.0em;
+}
+
+.ui-mini-boton:hover {
+    background-color: #00b8db;
+    color: #fff;
+}
+
+.ui-mini-boton:active {
+    background-color: #00a6c6;
+}
+
+.ui-icono-usuario {
+    background-image: url('img/usuario.png');
+}
+
+.ui-icono-candado {
+    background-image: url('img/candado.png');
+}
+
+.ui-icono-derecha {
+    background-image: url('img/derecha.png');
+}
+
+.ui-icono-salir {
+    background-image: url('img/salir.png');
+}
+
+.ui-icono-engranaje {
+    background-image: url('img/engranaje.png');
+}
+
+.ui-icono-cruz {
+    background-image: url('img/cruz.png');
+}
+
+.ui-icono-feliz {
+    background-image: url('img/feliz.png');
+}
+
+.ui-icono-lapiz {
+    background-image: url('img/lapiz.png');
+}
+
+.ui-icono-lupa {
+    background-image: url('img/lupa.png');
+}
+
+.ui-icono-estrella {
+    background-image: url('img/estrella.png');
+}
+
+.ui-icono-mensaje {
+    background-image: url('img/mensaje.png');
+}
+
+.ui-icono-vista {
+    background-image: url('img/vista.png');
+}
+
+/* ESTILO DEL CHECKBOX */
+
+.ui-cuerpo-checkbox {
+    height: 16px;
+    margin: 4px 0px;
+    position: relative;
+    text-indent: 30px;
+}
+
+input[type="checkbox"] {
+    height: 20px;
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    width: 24px;
+}
+
+.ui-mascara-checkbox {
+    background-color: #fff;
+    border: 2px solid #eaedf1;
+    border-radius: 2px;
+    display: inline-block;
+    height: 16px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 20px;
+    z-index: -1;
+}
+ 
+input[type="checkbox"]:checked + span:after {
+    color: #202226;  
+    content: "✔";
+    left: 2px;
+    position: absolute;
+    text-indent: 2px;
+    top: -1px;
+}
+
+/* FIN CHECKBOX */
+
+input[type="file"] {
+    padding-left: 10px;
+    width: 245px;
+}
+
+
+
+/*
+    BARRA DE MENSAJES
+*/
+
+#barra_mensajes {
+    background-color: #a40;
+    float: left;
+    font-size: 0.9em;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+}
+
+#barra_mensajes p {
+    color: #fff;
+}
+
+
+
+/*
+    TABLAS
+*/
+
+.listado {
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.listado tr.fila_par {
+    background-color: #eff1f3;
+}
+
+.listado tr.fila_impar {
+    background-color: #e4e8ed;
+}
+
+.listado td {
+    margin: 0px;
+    padding: 10px;
+}
+
+.listado .celda_imagen {
+    width: 100px;
+}
+
+.listado .celda_titulo {
+    width: 70%;
+}
+
+.listado .celda_info {
+    width: 10%;
+}
+
+.listado .celda_opciones {
+    width: 10%;
+}
+
+
+/*
+    PUBLICACION CELDA
+    DE LA PANTALLA PRINCIPAL
+*/
+
+.publicacion_celda {
+    float: left;
+    height: 420px;
+    margin: 0% 3% 50px 3%;
+    width: 260px;
+}
+
+.publicacion_celda .tiempo {
+    color: #9ea7b3;
+    font-size: 0.8em;
+    margin: 0px 0px 5px 0px;
+}
+
+.publicacion_celda h2 {
+    color: #00afd1;
+}
+
+.publicacion_celda p {
+    color: #666f7b;
+}
+
+.publicacion_celda .resumen {
+    font-size: 0.8em;
+    text-align: justify;
+}
+
+.publicacion_celda .detalles {
+    color: #323a45;
+    font-size: 0.7em;
+    text-align: center;
+}
+
+.publicacion_celda .precio {
+    color: #1fbba6;
+    font-size: 2em;
+    margin: 10px 2px 5px 0px;
+    text-align: right;
+}
+
+.publicacion_celda .precio:before {
+    color: #9ea7b3;
+    content: '$ ';
+    font-size: 0.6em;
+}
