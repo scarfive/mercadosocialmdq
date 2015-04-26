@@ -1,16 +1,17 @@
 <?php
 
 /*
-  Clase Preguntas
+  respuestas.php
 
-  Permite manejar la tabla Preguntas
-
-  Created on : 25/04/2015, 01:49:31
+  Una clase para el manejo de la tabla respuestas
+ */
+/*
+  Created on : 25/04/2015, 19:47:11
   Author     : Juan Manuel Scarciofolo
   License    : GPLv3
  */
 
-class Preguntas {
+class Respuestas {
 
     private $table;
     private $fields = array();
@@ -18,18 +19,16 @@ class Preguntas {
     /* Mapeo de la tabla */
 
     private function Mapping() {
-        $this->table = "preguntas";
-        $this->fields["codigo"] = Array("name" => "codigo", "flags" => "not_null primary_key unsigned auto_increment", "type" => "int", "len" => "11", "change" => false, "iskey" => 1);
-        $this->fields["publicacion"] = Array("name" => "publicacion", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
-        $this->fields["usuario"] = Array("name" => "usuario", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
-        $this->fields["fecha"] = Array("name" => "fecha", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
-        $this->fields["pregunta"] = Array("name" => "pregunta", "flags" => "", "type" => "string", "len" => "256", "change" => false, "iskey" => 0);
-        $this->fields["respondida"] = Array("name" => "respondida", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "1", "change" => false, "iskey" => 0);
+        $this->table = "respuestas";
+        $this->fields["codigo"] = array("name" => "codigo", "flags" => "not_null primary_key unsigned auto_increment", "type" => "int", "len" => "11", "change" => false, "iskey" => 1);
+        $this->fields["pregunta"] = array("name" => "pregunta", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
+        $this->fields["fecha"] = array("name" => "fecha", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
+        $this->fields["respuesta"] = array("name" => "respuesta", "flags" => "", "type" => "string", "len" => "256", "change" => false, "iskey" => 0);
     }
 
     /* Constructor */
 
-    function Preguntas($codigo = NULL) {
+    function Respuestas($codigo = NULL) {
         $this->Mapping();
         if ($codigo != NULL) {
             $query = "select * from " . $this->table . " where codigo = $codigo";
@@ -56,16 +55,10 @@ class Preguntas {
         $this->fields["codigo"]["change"] = true;
     }
 
-    function setPublicacion($value) {
+    function setPregunta($value) {
         $value = intval($value);
-        $this->fields["publicacion"]["value"] = $value;
-        $this->fields["publicacion"]["change"] = true;
-    }
-
-    function setUsuario($value) {
-        $value = intval($value);
-        $this->fields["usuario"]["value"] = $value;
-        $this->fields["usuario"]["change"] = true;
+        $this->fields["pregunta"]["value"] = $value;
+        $this->fields["pregunta"]["change"] = true;
     }
 
     function setFecha($value) {
@@ -73,15 +66,10 @@ class Preguntas {
         $this->fields["fecha"]["change"] = true;
     }
 
-    function setPregunta($value) {
+    function setRespuesta($value) {
         $value = trim($value);
-        $this->fields["pregunta"]["value"] = $value;
-        $this->fields["pregunta"]["change"] = true;
-    }
-
-    function setRespondida($value) {
-        $this->fields["respondida"]["value"] = $value;
-        $this->fields["respondida"]["change"] = true;
+        $this->fields["respuesta"]["value"] = $value;
+        $this->fields["respuesta"]["change"] = true;
     }
 
     /*
@@ -93,24 +81,16 @@ class Preguntas {
         return $this->fields["codigo"]["value"];
     }
 
-    function getPublicacion() {
-        return $this->fields["publicacion"]["value"];
-    }
-
-    function getUsuario() {
-        return $this->fields["usuario"]["value"];
+    function getPregunta() {
+        return $this->fields["pregunta"]["value"];
     }
 
     function getFecha() {
         return $this->fields["fecha"]["value"];
     }
 
-    function getPregunta() {
-        return $this->fields["pregunta"]["value"];
-    }
-
-    function getRespondida() {
-        return $this->fields["respondida"]["value"];
+    function getRespuesta() {
+        return $this->fields["respuesta"]["value"];
     }
 
     /* Metodo Update */
@@ -185,23 +165,5 @@ class Preguntas {
         }
         return TRUE;
     }
-    
-    /* Indica la cantidad de preguntas sin leer */
-    
-    function getPendientes() {
-        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE respondida = 0";
-        $conn = new Conexion();
-        $conn->conectar();
-        if (!$conn->ejecutar($query)) {
-            return FALSE;
-        }
-        $valor = $conn->valor();
-        if (empty($valor)) {
-            return 0;
-        }
-        return $valor;
-    }
 
 }
-
-?>

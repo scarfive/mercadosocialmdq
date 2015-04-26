@@ -1,45 +1,42 @@
 <?php
 /*
-    lista_preguntas.php
+    lista_respuestas.php
     
-    Implementa una lista de preguntas de publicaciones
+    Implementa una lista de respuestas
 */
 /* 
-    Created on : 25/04/2015, 03:23:21
+    Created on : 25/04/2015, 21:18:21
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
 
-class ListaPreguntas {
+class ListaRespuestas {
     
-    private $preguntas;
+    private $respuestas;
     private $filtro;
     private $orden;
+    private $puntero;
 
     public function __construct() {
-        $this->preguntas = array();
+        $this->respuestas = array();
         $this->filtro = NULL;
         $this->orden = NULL;
+        $this->puntero = 0;
     }
     
-    public function setFiltroRespondidas($respondidas = FALSE) {
+    public function setFiltroPregunta($pregunta) {
         $this->verificarFiltro();
-        if ($respondidas) {
-            $this->filtro .= " respondida = 1";
-        }
-        else {
-            $this->filtro .= " respondida = 0";
-        }
+        $this->filtro .= " pregunta = ".$pregunta;
     }
     
     public function setFiltroPublicacion($publicacion) {
         $this->verificarFiltro();
-        $this->filtro .= " publicacion = ".$publicacion;
+        $this->filtro .= " pregunta = (SELECT codigo FROM preguntas WHERE publicacion = ".$publicacion.")";
     }
     
     public function setFiltroUsuario($usuario) {
         $this->verificarFiltro();
-        $this->filtro .= " publicacion IN (SELECT publicaciones.codigo FROM publicaciones, productos WHERE publicaciones.producto = productos.codigo AND productos.usuario = ".$usuario.")";
+        $this->filtro .= " pregunta = (SELECT codigo FROM preguntas WHERE usuario = ".$usuario.")";
     }
     
     public function setOrdenFecha($dir = 'ASC') {
@@ -49,7 +46,7 @@ class ListaPreguntas {
     public function cargarLista() {
         $conn = new Conexion();
         $conn->conectar();
-        $query = "SELECT codigo FROM preguntas";
+        $query = "SELECT codigo FROM respuestas";
         if (!empty($this->filtro)) {
             $query .= $this->filtro;
         }
@@ -58,17 +55,25 @@ class ListaPreguntas {
         }
         if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {
-                $this->preguntas[] = new Preguntas($row[0]);
+                $this->respuestas[] = new Respuestas($row[0]);
             }
         }
     }
     
-    public function getPreguntas() {
-        return $this->preguntas;
+    public function getRespuestas() {
+        return $this->respuestas;
     }
     
     public function getCantidad() {
-        return sizeof($this->preguntas);
+        return sizeof($this->respuestas);
+    }
+    
+    public function getSiguienteRespuesta() {
+        $respuesta = $this->respuestas[$this->puntero++];
+        if ($this->puntero >= $this->getCantidad()) {
+            $this->puntero = 0;
+        }
+        return $respuesta;
     }
     
     private function verificarFiltro() {

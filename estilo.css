@@ -135,6 +135,14 @@ p {
     width: 265px;
 }
 
+.img_micro {
+    border: 5px solid #fff;
+    float: left;
+    height: 50px;
+    margin: 0px 10px 0px 0px;
+    width: 50px;
+}
+
 .publicacion {
     
 }
@@ -210,6 +218,18 @@ p.publicacion_info {
     text-align: center;
     width: 22px;
 }
+
+.cuadro_pregunta {
+    border: 1px solid #e4e8ed;
+    margin-bottom: 0.6em;
+    padding: 1em;
+}
+
+.cuadro_pregunta .detalles {
+    margin: 0.4em 0em;
+}
+
+
 
 
 
@@ -309,6 +329,18 @@ a:hover {
     color: #fff;
 }
 
+.cuadro_pregunta {
+    background-color: #eff1f3;
+}
+
+.cuadro_pregunta h2 {
+    color: #00b8db;
+}
+
+.cuadro_pregunta .detalles {
+    color: #9ea7b3;
+}
+
 
 
 
@@ -387,6 +419,16 @@ li {
 .publicacion_detalles {
     font-size: 0.8em;
 }
+    
+.cuadro_pregunta h2 {
+    font-size: 1em;
+}
+
+.cuadro_pregunta .detalles {
+    font-size: 0.8em;
+}
+
+
 
 
 

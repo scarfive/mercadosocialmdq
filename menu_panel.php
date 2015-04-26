@@ -13,7 +13,7 @@
     include_once('inc/lista_preguntas.php');
     
     $preguntas = new ListaPreguntas();
-    $preguntas->setFiltroLeidas();
+    $preguntas->setFiltroRespondidas();
     $preguntas->setFiltroUsuario($sesion->get_user_id());
     $preguntas->cargarLista();
     
@@ -38,7 +38,7 @@
 
     <li><img src="img/puntaje.png" />Mi puntaje</li>
 
-    <li><a href="?include=usuario&form=preguntas_realizadas"><img src="img/pregunta.png" />Preguntas
+    <li><a href="?include=usuario&form=ver_preguntas"><img src="img/pregunta.png" />Preguntas
             
     <?php
         if ($preguntas_pendientes > 0) {

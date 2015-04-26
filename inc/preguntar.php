@@ -17,7 +17,7 @@ if (!validRequest('codigo')) {
     $error = 'Debe indicar una publicaci&oacute;n para realizar la pregunta';
 }
 elseif (!validRequest('consulta')) {
-    $error = 'Debe ingresar unA pregunta';
+    $error = 'Debe ingresar una pregunta';
 }
 
 if (empty($error)) {

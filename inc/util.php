@@ -90,6 +90,93 @@ function fechaRelativa($fecha) {
     return round(($date - $today)/$day);
 }
 
+function getTiempoPasado($fecha) {
+    $tiempo = 0;
+    $cadena = '';
+    if (($tiempo = sonAnios($fecha))) {
+        $cadena = 'a&ntilde;o';
+    }
+    elseif (($tiempo = sonMeses($fecha))) {
+        $cadena = 'mes';
+    }
+    elseif (($tiempo = sonDias($fecha))) {
+        $cadena = 'd&iacute;a';
+    }
+    elseif (($tiempo = sonHoras($fecha))) {
+        $cadena = 'hora';
+    }
+    elseif (($tiempo = sonMinutos($fecha))) {
+        $cadena = 'minuto';
+    }
+    else {
+        $tiempo = cantidadSegundos($fecha);
+        $cadena = 'segundo';
+    }
+    if ($tiempo < 2) {
+        $cadena = 'un'.genero($cadena).' '.$cadena;
+    }
+    else {
+        $cadena = $tiempo.' '.plural($cadena);
+    }
+    return $cadena;
+}
+
+function cantidadSegundos($fecha) {
+    return fechaEnIntervalo($fecha, 1);
+}
+
+function sonMinutos($fecha) {
+    $minuto = 60;
+    return fechaEnIntervalo($fecha, $minuto);
+}
+
+function sonHoras($fecha) {
+    $hora = 60*60;
+    return fechaEnIntervalo($fecha, $hora);
+}
+
+function sonDias($fecha) {
+    $dia = 24*60*60;
+    return fechaEnIntervalo($fecha, $dia);
+}
+
+function sonMeses($fecha) {
+    $mes = 30*24*60*60;
+    return fechaEnIntervalo($fecha, $mes);
+}
+
+function sonAnios($fecha) {
+    $anio = 365*24*60*60;
+    return fechaEnIntervalo($fecha, $anio);
+}
+
+function fechaEnIntervalo($fecha, $intervalo) {
+    $today = time();
+    $date = strtotime($fecha);
+    $result = floor(($today - $date)/$intervalo);
+    if ($result < 1) {
+        return FALSE;
+    }
+    return $result;
+}
+
+function plural($str) {
+    $vocales = array('a', 'e', 'i', 'o', 'u');
+    $ultima_letra = substr($str, -1);
+    if (in_array($ultima_letra, $vocales)) {
+        return $str.'s';
+    }
+    return $str.'es';
+}
+
+function genero($str) {
+    $ultima_letra = substr($str, -1);
+    if ($ultima_letra == 'a') {
+        return 'a';
+    }
+    return NULL;
+}
+
 function quitarTildes($str) {
     $car_especiales = array("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
     $car_normales = array("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");

@@ -67,6 +67,9 @@
         elseif (isset($_REQUEST['realizar-pregunta'])) {
             include_once('inc/preguntar.php');
         }
+        elseif (isset($_REQUEST['enviar-respuesta'])) {
+            include_once('inc/responder.php');
+        }
     }
     else {
         if (isLogin()) {

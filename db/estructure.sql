@@ -123,12 +123,12 @@ CREATE TABLE IF NOT EXISTS `preguntas` (
   `usuario` int(11) unsigned NOT NULL DEFAULT '0',
   `fecha` datetime DEFAULT NULL,
   `pregunta` varchar(256) COLLATE latin1_spanish_ci DEFAULT '',
-  `leida` boolean NOT NULL DEFAULT FALSE
+  `respondida` boolean NOT NULL DEFAULT FALSE
    PRIMARY KEY (`codigo`),
    INDEX (`publicacion`),
    INDEX (`usuario`),
    INDEX (`fecha`),
-   INDEX (`leida`)
+   INDEX (`respondida`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 
