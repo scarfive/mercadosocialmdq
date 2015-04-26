@@ -86,6 +86,22 @@ CREATE TABLE IF NOT EXISTS `publicaciones` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 
+CREATE TABLE IF NOT EXISTS `publicaciones_canceladas` (
+  `codigo` int(11) unsigned NOT NULL DEFAULT '0',
+  `producto` int(11) unsigned NOT NULL DEFAULT '0',
+  `precio` double(8,2) unsigned NOT NULL DEFAULT '0',
+  `fecha` datetime DEFAULT NULL,
+  `limite` datetime DEFAULT NULL,
+  `vistas` int(11) unsigned NOT NULL DEFAULT '0'
+   PRIMARY KEY (`codigo`),
+   INDEX (`producto`),
+   INDEX (`precio`),
+   INDEX (`fecha`),
+   INDEX (`limite`),
+   INDEX (`vistas`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+
 CREATE TABLE IF NOT EXISTS `operaciones` (
   `codigo` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fecha` datetime DEFAULT NULL,

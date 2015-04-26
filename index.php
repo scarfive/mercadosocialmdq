@@ -70,6 +70,9 @@
         elseif (isset($_REQUEST['enviar-respuesta'])) {
             include_once('inc/responder.php');
         }
+        elseif (isset($_REQUEST['comprar-producto'])) {
+            include_once('inc/comprar.php');
+        }
     }
     else {
         if (isLogin()) {

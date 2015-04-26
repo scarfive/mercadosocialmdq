@@ -76,7 +76,7 @@
         $en_cancelar->show();
     }
     else {
-        $en_comprar = new Enlace('comprar', 'Comprar producto', '?include=usuario&form=compra&codigo='.$_REQUEST['codigo']);
+        $en_comprar = new Enlace('comprar', 'Comprar producto', '?include=usuario&form=compra_confirmacion&codigo='.$_REQUEST['codigo']);
         $en_comprar->add_class('ui-boton ui-boton-azul');
         $en_comprar->show();
 

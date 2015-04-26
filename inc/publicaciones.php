@@ -187,9 +187,13 @@ class Publicaciones {
     /* Metodo Delete */
 
     function delete() {
-        $query = "DELETE FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
         $conn = new Conexion();
         $conn->conectar();
+        $query = "INSERT INTO publicaciones_canceladas SELECT * FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        $query = "DELETE FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
         if (!$conn->ejecutar($query)) {
             return FALSE;
         }
