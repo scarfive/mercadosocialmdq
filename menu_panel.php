@@ -9,8 +9,26 @@
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
+    include_once('inc/operaciones.php');
+    include_once('inc/lista_operaciones.php');
+    include_once('inc/mensajes.php');
+    include_once('inc/lista_mensajes.php');
     include_once('inc/preguntas.php');
     include_once('inc/lista_preguntas.php');
+    
+    $operaciones = new ListaOperaciones();
+    $operaciones->setFiltroConcretadas();
+    $operaciones->setFiltroUsuario($sesion->get_user_id());
+    $operaciones->cargarLista();
+    
+    $compras_pendientes = $operaciones->getCantidad();
+    
+    $mensajes = new ListaMensajes();
+    $mensajes->setFiltroLeidos();
+    $mensajes->setFiltroPara($sesion->get_user_id());
+    $mensajes->cargarLista();
+    
+    $mensajes_pendientes = $mensajes->getCantidad();
     
     $preguntas = new ListaPreguntas();
     $preguntas->setFiltroRespondidas();
@@ -28,9 +46,25 @@
 
     <li><a href="?include=usuario&form=listado_productos"><img src="img/producto.png" />Mis productos</a></li>
 
-    <li><img src="img/mensaje.png" />Mensajes</li>
+    <li><a href="?include=usuario&form=ver_mensajes"><img src="img/mensaje.png" />Mensajes
 
-    <li><img src="img/compra.png" />Mis compras</li>
+    <?php
+        if ($mensajes_pendientes > 0) {
+            print '<span class="indicador_cantidad">'.$mensajes_pendientes.'</span>';
+        }
+    ?>
+        
+    </a></li>
+
+    <li><a href="?include=usuario&form=ver_compras"><img src="img/compra.png" />Mis compras
+    
+    <?php
+        if ($compras_pendientes > 0) {
+            print '<span class="indicador_cantidad">'.$compras_pendientes.'</span>';
+        }
+    ?>
+        
+    </a></li>
 
     <li><img src="img/venta.png" />Mis ventas</li>
 

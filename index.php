@@ -73,6 +73,9 @@
         elseif (isset($_REQUEST['comprar-producto'])) {
             include_once('inc/comprar.php');
         }
+        elseif (isset($_REQUEST['enviar-mensaje'])) {
+            include_once('inc/enviar_mensaje.php');
+        }
     }
     else {
         if (isLogin()) {

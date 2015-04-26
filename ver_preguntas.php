@@ -36,7 +36,7 @@
 
             $imagenes = $producto->getImagenes();
 
-            print '<div class="cuadro_pregunta">';
+            print '<div class="cuadro_lista">';
 
             print '<img class="img_micro" src="'.$imagenes[0]['imagen'].'" />';
 
@@ -53,7 +53,7 @@
             print '<p>'.$pregunta->getPregunta().'</p>';
 
             $en_responder = new Enlace('responder', 'Responder', '?include=usuario&form=pregunta_respuesta&codigo='.$pregunta->getCodigo());
-            $en_responder->add_class('ui-mini-boton');
+            $en_responder->add_class('ui-mini-boton ui-boton-azul');
             $en_responder->show();
 
             print '</div>';
@@ -67,6 +67,6 @@
     }
     
     $en_todas = new Enlace('preguntas-todas', 'Ver todas', '?include=usuario&form=preguntas_todas');
-    $en_todas->add_class('ui-boton ui-boton-naranja');
+    $en_todas->add_class('ui-boton ui-boton-verde');
     $en_todas->show();
 ?>

@@ -38,7 +38,7 @@
             print '<p class="precio">'.$publicacion->getPrecio().'</p>';
             
             $en_ver = new Enlace('ver-publicacion', 'ver producto', '?include=publicacion&form=ver_publicacion&codigo='.$publicacion->getCodigo());
-            $en_ver->add_class('ui-mini-boton');
+            $en_ver->add_class('ui-mini-boton ui-boton-azul');
             $en_ver->show();
         ?>
     </p>

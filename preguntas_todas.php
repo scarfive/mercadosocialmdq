@@ -36,7 +36,7 @@
         
         $imagenes = $producto->getImagenes();
         
-        print '<div class="cuadro_pregunta">';
+        print '<div class="cuadro_lista">';
         
         print '<img class="img_micro" src="'.$imagenes[0]['imagen'].'" />';
         
