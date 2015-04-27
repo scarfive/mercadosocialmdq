@@ -15,7 +15,11 @@
     
     $mensajes = new ListaMensajes();
     $mensajes->setFiltroPara($sesion->get_user_id());
-    $mensajes->setFiltroLeidos();
+    
+    if (!validRequest('cantidad')) { 
+        $mensajes->setFiltroLeidos();
+    }
+    
     $mensajes->cargarLista();
 ?>
 
@@ -26,24 +30,36 @@
 <?php 
     if ($mensajes->getCantidad() > 0) {
         
-        $pendientes = $mensajes->getCantidad();
-        
-        if ($pendientes > 1) {
-            print '<h2>Tiene '.$pendientes.' mensajes pendientes</h2>';
+        if (!validRequest('cantidad')) { 
+            
+            $pendientes = $mensajes->getCantidad();
+
+            print '<p>&nbsp;</p>';
+
+            print '<h2><span class="ui-icono ui-icono-sobre"></span>Tiene ';
+
+            if ($pendientes > 1) {
+                print $pendientes.' mensajes pendientes';
+            }
+            else {
+                print 'un mensaje pendiente';
+            }
+
+            print '</h2>';
+            
         }
-        else {
-            print '<h2>Tiene un mensaje pendiente</h2>';
-        }
-        
+
         print '<p>&nbsp;</p>';
+        
+        $mensajes->agruparPorRemitente();
+        $mensajes->setOrdenCodigo('DESC');
+        $mensajes->cargarLista();
         
         foreach ($mensajes->getMensajes() as $mensaje) {
 
             $usuario = new Usuarios($mensaje->getDe());
 
             print '<div class="cuadro_lista">';
-
-            /*print '<img class="img_micro" src="'.$imagenes[0]['imagen'].'" />';*/
 
             print '<h2>';
 
@@ -58,7 +74,7 @@
             print '<span class="contador">'.$mens_cantidad.'</span>';
             
             print 'Mensaje';
-            if ($mens_cantidad > 1) {
+            if ($mens_cantidad != 1) {
                 print 's';
             }
             print ' con ';
@@ -70,9 +86,9 @@
             
             print '<p class="detalles">Ultimo mensaje hace '.getTiempoPasado($mensaje->getFecha()).'</p>';
 
-            //print '<p>'.$mensaje->getPregunta().'</p>';
+            print '<p></p>';
 
-            $en_responder = new Enlace('responder', 'Responder', '?include=usuario&form=mensaje_respuesta&codigo='.$mensaje->getCodigo());
+            $en_responder = new Enlace('ver', 'Ver mensajes', '?include=usuario&form=mensajes_usuario&codigo='.$usuario->getCodigo());
             $en_responder->add_class('ui-mini-boton ui-boton-naranja');
             $en_responder->show();
 
@@ -86,7 +102,9 @@
         print '<p>&nbsp;</p>';
     }
     
-    $en_todas = new Enlace('mensajes-todos', 'Ver todos', '?include=usuario&form=mensajes_todos');
-    $en_todas->add_class('ui-boton ui-boton-azul');
-    $en_todas->show();
+    if (!validRequest('cantidad')) {
+        $en_todas = new Enlace('mensajes-todos', 'Ver todos', '?include=usuario&form=ver_mensajes&cantidad=todos');
+        $en_todas->add_class('ui-boton ui-boton-azul');
+        $en_todas->show();
+    }
 ?>

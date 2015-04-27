@@ -221,8 +221,10 @@ p.publicacion_info {
 
 .cuadro_lista {
     border: 1px solid #e4e8ed;
+    float: left;
     margin-bottom: 0.6em;
     padding: 1em;
+    width: 96%;
 }
 
 .cuadro_lista .detalles {
@@ -545,6 +547,26 @@ li {
     min-height: 300px;
 }
 
+#principal .formulario_mensaje {
+    min-height: 3em;
+}
+
+.cuadro_formulario_mensaje {
+    float: left;
+    height: 10%;
+    margin: 1% 0%;
+    width: 95%;
+}
+
+.formulario_mensaje {
+    width: 100%;
+}
+
+.formulario_mensaje textarea {
+    height: 3.8em;
+    width: 100%;
+}
+
 
 
 /*
@@ -571,6 +593,15 @@ li {
 
 .ui-combo {
     width: 265px;
+}
+
+.ui-icono {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 0.2em;
+    padding: 12px;
+    vertical-align: top;
 }
 
 .ui-enlace {
@@ -697,6 +728,10 @@ a.ui-boton {
 
 .ui-icono-vista {
     background-image: url('img/vista.png');
+}
+
+.ui-icono-sobre {
+    background-image: url('img/sobre.png');
 }
 
 /* ESTILO DEL CHECKBOX */

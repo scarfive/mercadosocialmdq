@@ -14,12 +14,14 @@ class ListaMensajes {
     private $mensajes;
     private $filtro;
     private $orden;
+    private $agrupacion;
     private $puntero;
 
     public function __construct() {
         $this->mensajes = array();
         $this->filtro = NULL;
         $this->orden = NULL;
+        $this->agrupacion = NULL;
         $this->puntero = 0;
     }
     
@@ -31,6 +33,11 @@ class ListaMensajes {
     public function setFiltroPara($usuario) {
         $this->verificarFiltro();
         $this->filtro .= " para = ".$usuario;
+    }
+    
+    public function setFiltroEntre($usuario1, $usuario2) {
+        $this->verificarFiltro();
+        $this->filtro .= " (de = ".$usuario1." OR de = ".$usuario2.") AND (para = ".$usuario1." OR para = ".$usuario2.")";
     }
     
     public function setFiltroLeidos($leido = FALSE) {
@@ -47,6 +54,18 @@ class ListaMensajes {
         $this->orden = " ORDER BY fecha ".$dir;
     }
     
+    public function setOrdenUsuario($dir = 'ASC') {
+        $this->orden = " ORDER BY de, codigo ".$dir;
+    }
+    
+    public function setOrdenCodigo($dir = 'ASC') {
+        $this->orden = " ORDER BY codigo ".$dir;
+    }
+    
+    public function agruparPorRemitente() {
+        $this->agrupacion = " GROUP BY de";
+    }
+    
     public function cargarLista() {
         $conn = new Conexion();
         $conn->conectar();
@@ -54,9 +73,13 @@ class ListaMensajes {
         if (!empty($this->filtro)) {
             $query .= $this->filtro;
         }
+        if (!empty($this->agrupacion)) {
+            $query .= $this->agrupacion;
+        }
         if (!empty($this->orden)) {
             $query .= $this->orden;
         }
+        $this->mensajes = array();
         if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {
                 $this->mensajes[] = new Mensajes($row[0]);

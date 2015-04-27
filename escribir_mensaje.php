@@ -35,7 +35,7 @@
     
     $formulario->open();
     
-    $campo_codigo = new CampoOculto('codigo', $_REQUEST['codigo']);
+    $campo_codigo = new CampoOculto('codigo', $usuario->getCodigo());
     $campo_codigo->show();
     
     $campo_mensaje = new CampoTexto('mensaje', '', '');

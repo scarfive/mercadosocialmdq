@@ -32,7 +32,7 @@
 
             $publicacion = new Publicaciones($pregunta->getPublicacion());
             $producto = new Productos($publicacion->getProducto());
-            $usuario = new Usuarios($producto->getUsuario());
+            $usuario = new Usuarios($pregunta->getUsuario());
 
             $imagenes = $producto->getImagenes();
 

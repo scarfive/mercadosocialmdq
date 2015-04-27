@@ -8,6 +8,7 @@
         private $parameters = NULL;
         private $uri = NULL;
         private $method = NULL;
+        private $class = NULL;
         
         public function __construct($action = '') {
             $this->action = $action;
@@ -39,8 +40,12 @@
             $this->method = $method;
         }
         
+        public function add_class($class) {
+            $this->class .= ' '.$class;
+        }
+        
         public function open() {
-            print '<form class="formulario" method="'.$this->method.'" enctype="multipart/form-data" action="'.$this->action.'">';
+            print '<form class="formulario'.$this->class.'" method="'.$this->method.'" enctype="multipart/form-data" action="'.$this->action.'">';
             $this->set_action_parameters();
         }
         
