@@ -56,7 +56,7 @@
             $en_contacto->add_class('ui-mini-boton ui-boton-verde');
             $en_contacto->show();
 
-            $en_terminar = new Enlace('terminar', 'Compra finalizada', '?include=usuario&form=terminar_compra&codigo='.$producto->getUsuario());
+            $en_terminar = new Enlace('terminar', 'Compra finalizada', '?include=usuario&form=compra_terminar&codigo='.$publicacion->getCodigo());
             $en_terminar->add_class('ui-mini-boton ui-boton-naranja');
             $en_terminar->show();
 
@@ -67,6 +67,10 @@
             $en_puntuar = new Enlace('puntuar', 'Calificar al producto', '?include=usuario&form=calificar_producto&codigo='.$producto->getUsuario());
             $en_puntuar->add_class('ui-mini-boton ui-boton-verde');
             $en_puntuar->show();
+
+            $en_denuncia = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&codigo='.$publicacion->getCodigo());
+            $en_denuncia->add_class('ui-mini-boton ui-boton-naranja');
+            $en_denuncia->show();
 
             print '</div>';
         }

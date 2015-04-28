@@ -28,24 +28,29 @@
 
 <p>&nbsp;</p>
 
-<p>Mensaje para <?php print $en_usuario->show(); ?>:</p>
+<p><span class="ui-icono ui-icono-lapiz"></span>Mensaje para <?php print $en_usuario->show(); ?></p>
 
-<?php
-    $formulario = new Formulario('?include=usuario&form=ver_compras');
-    
-    $formulario->open();
-    
-    $campo_codigo = new CampoOculto('codigo', $usuario->getCodigo());
-    $campo_codigo->show();
-    
-    $campo_mensaje = new CampoTexto('mensaje', '', '');
-    $campo_mensaje->add_class('ui-icono-derecha');
-    $campo_mensaje->set_required();
-    $campo_mensaje->show();
-    
-    $boton = new Boton('enviar-mensaje', 'Enviar');
-    $boton->add_class('ui-boton-azul');
-    $boton->show();
-    
-    $formulario->close();
-?>
+<div class="cuadro_formulario_mensaje">
+
+    <?php
+        $formulario = new Formulario('?include=usuario&form=ver_compras');
+        $formulario->add_class('formulario_mensaje');
+
+        $formulario->open();
+
+        $campo_codigo = new CampoOculto('codigo', $usuario->getCodigo());
+        $campo_codigo->show();
+
+        $campo_mensaje = new CampoTexto('mensaje', '', '');
+        $campo_mensaje->add_class('ui-icono-derecha');
+        $campo_mensaje->set_required();
+        $campo_mensaje->show();
+
+        $boton = new Boton('enviar-mensaje', 'Enviar');
+        $boton->add_class('ui-boton-azul');
+        $boton->show();
+
+        $formulario->close();
+    ?>
+
+</div>

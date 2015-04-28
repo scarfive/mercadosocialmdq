@@ -1,16 +1,17 @@
 <?php
-/*
-    operaciones.php
-    
-    Permite manejar la tabla de operaciones
-*/
-/* 
-    Created on : 25/04/2015, 22:49:55
-    Author     : Juan Manuel Scarciofolo
-    License    : GPLv3
-*/
 
-class Operaciones {
+/*
+  calificaciones.php
+
+  Permite manejar la tabla de calificaciones
+ */
+/*
+  Created on : 27/04/2015, 22:28:48
+  Author     : Juan Manuel Scarciofolo
+  License    : GPLv3
+ */
+
+class Calificaciones {
 
     private $table;
     private $fields = array();
@@ -18,18 +19,17 @@ class Operaciones {
     /* Mapeo de la tabla */
 
     private function Mapping() {
-        $this->table = "operaciones";
+        $this->table = "calificaciones";
         $this->fields["codigo"] = array("name" => "codigo", "flags" => "not_null primary_key unsigned auto_increment", "type" => "int", "len" => "11", "change" => false, "iskey" => 1);
+        $this->fields["producto"] = array("name" => "producto", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
+        $this->fields["usuario"] = array("name" => "usuario", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
         $this->fields["fecha"] = array("name" => "fecha", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
-        $this->fields["monto"] = array("name" => "monto", "flags" => "not_null unsigned", "type" => "real", "len" => "8", "change" => false, "iskey" => 0);
-        $this->fields["publicacion"] = array("name" => "publicacion", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
-        $this->fields["comprador"] = array("name" => "comprador", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
-        $this->fields["concretada"] = array("name" => "concretada", "flags" => "not_null multiple_key", "type" => "int", "len" => "1", "change" => false, "iskey" => 0);
+        $this->fields["calificacion"] = array("name" => "calificacion", "flags" => "not_null unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
     }
 
     /* Constructor */
 
-    function Operaciones($codigo = NULL) {
+    function Calificaciones($codigo = NULL) {
         $this->Mapping();
         if ($codigo != NULL) {
             $query = "select * from " . $this->table . " where codigo = $codigo";
@@ -56,32 +56,27 @@ class Operaciones {
         $this->fields["codigo"]["change"] = true;
     }
 
+    function setProducto($value) {
+        $value = intval($value);
+        $this->fields["producto"]["value"] = $value;
+        $this->fields["producto"]["change"] = true;
+    }
+
+    function setUsuario($value) {
+        $value = intval($value);
+        $this->fields["usuario"]["value"] = $value;
+        $this->fields["usuario"]["change"] = true;
+    }
+
     function setFecha($value) {
         $this->fields["fecha"]["value"] = $value;
         $this->fields["fecha"]["change"] = true;
     }
 
-    function setMonto($value) {
-        $this->fields["monto"]["value"] = $value;
-        $this->fields["monto"]["change"] = true;
-    }
-
-    function setPublicacion($value) {
+    function setCalificacion($value) {
         $value = intval($value);
-        $this->fields["publicacion"]["value"] = $value;
-        $this->fields["publicacion"]["change"] = true;
-    }
-
-    function setComprador($value) {
-        $value = intval($value);
-        $this->fields["comprador"]["value"] = $value;
-        $this->fields["comprador"]["change"] = true;
-    }
-
-    function setConcretada($value) {
-        $value = intval($value);
-        $this->fields["concretada"]["value"] = $value;
-        $this->fields["concretada"]["change"] = true;
+        $this->fields["calificacion"]["value"] = $value;
+        $this->fields["calificacion"]["change"] = true;
     }
 
     /*
@@ -93,24 +88,20 @@ class Operaciones {
         return $this->fields["codigo"]["value"];
     }
 
+    function getProducto() {
+        return $this->fields["producto"]["value"];
+    }
+
+    function getUsuario() {
+        return $this->fields["usuario"]["value"];
+    }
+
     function getFecha() {
         return $this->fields["fecha"]["value"];
     }
 
-    function getMonto() {
-        return $this->fields["monto"]["value"];
-    }
-
-    function getPublicacion() {
-        return $this->fields["publicacion"]["value"];
-    }
-
-    function getComprador() {
-        return $this->fields["comprador"]["value"];
-    }
-
-    function getConcretada() {
-        return $this->fields["concretada"]["value"];
+    function getCalificacion() {
+        return $this->fields["calificacion"]["value"];
     }
 
     /* Metodo Update */
@@ -185,6 +176,7 @@ class Operaciones {
         }
         return TRUE;
     }
-    
+
 }
+
 ?>

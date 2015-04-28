@@ -30,9 +30,14 @@
 <?php 
     include('publicacion_miniatura.php');
     
+    print '<p>&nbsp;</p>';
+    
     print '<p><b>PREGUNTA:</b> '.$pregunta->getPregunta().'</p>';
     
+    print '<div class="cuadro_formulario_mensaje">';
+    
     $formulario = new Formulario('?include=usuario&form=ver_preguntas');
+    $formulario->add_class('formulario_mensaje');
     
     $formulario->open();
     
@@ -40,6 +45,7 @@
     $campo_codigo->show();
     
     $campo_cons = new CampoTexto('respuesta', '', '');
+    $campo_cons->add_class('ui-icono-derecha');
     $campo_cons->set_required();
     $campo_cons->show();
     
@@ -48,4 +54,6 @@
     $boton->show();
     
     $formulario->close();
+    
+    print '</div>';
 ?>

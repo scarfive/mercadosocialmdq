@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `publicaciones` (
   `precio` double(8,2) unsigned NOT NULL DEFAULT '0',
   `fecha` datetime DEFAULT NULL,
   `limite` datetime DEFAULT NULL,
-  `vistas` int(11) unsigned NOT NULL DEFAULT '0'
+  `vistas` int(11) unsigned NOT NULL DEFAULT '0',
    PRIMARY KEY (`codigo`),
    INDEX (`producto`),
    INDEX (`precio`),
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `publicaciones_canceladas` (
   `precio` double(8,2) unsigned NOT NULL DEFAULT '0',
   `fecha` datetime DEFAULT NULL,
   `limite` datetime DEFAULT NULL,
-  `vistas` int(11) unsigned NOT NULL DEFAULT '0'
+  `vistas` int(11) unsigned NOT NULL DEFAULT '0',
    PRIMARY KEY (`codigo`),
    INDEX (`producto`),
    INDEX (`precio`),
@@ -103,6 +103,21 @@ CREATE TABLE IF NOT EXISTS `publicaciones_canceladas` (
 
 
 CREATE TABLE IF NOT EXISTS `operaciones` (
+  `codigo` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `monto` double(8,2) unsigned NOT NULL DEFAULT '0',
+  `publicacion` int(11) unsigned NOT NULL DEFAULT '0',
+  `comprador` int(11) unsigned NOT NULL DEFAULT '0',
+  `concretada` boolean NOT NULL DEFAULT FALSE,
+   PRIMARY KEY (`codigo`),
+   INDEX (`fecha`),
+   INDEX (`publicacion`),
+   INDEX (`comprador`),
+   INDEX (`concretada`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+
+CREATE TABLE IF NOT EXISTS `operaciones_canceladas` (
   `codigo` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `fecha` datetime DEFAULT NULL,
   `monto` double(8,2) unsigned NOT NULL DEFAULT '0',
@@ -139,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `preguntas` (
   `usuario` int(11) unsigned NOT NULL DEFAULT '0',
   `fecha` datetime DEFAULT NULL,
   `pregunta` varchar(256) COLLATE latin1_spanish_ci DEFAULT '',
-  `respondida` boolean NOT NULL DEFAULT FALSE
+  `respondida` boolean NOT NULL DEFAULT FALSE,
    PRIMARY KEY (`codigo`),
    INDEX (`publicacion`),
    INDEX (`usuario`),
@@ -178,6 +193,7 @@ CREATE TABLE IF NOT EXISTS `calificaciones` (
   `usuario` int(11) unsigned NOT NULL DEFAULT '0',
   `fecha` datetime DEFAULT NULL,
   `calificacion` int(11) unsigned NOT NULL DEFAULT '0',
+  `observaciones` VARCHAR(256) COLLATE latin1_spanish_ci DEFAULT '',
    PRIMARY KEY (`codigo`),
    INDEX (`producto`),
    INDEX (`usuario`),

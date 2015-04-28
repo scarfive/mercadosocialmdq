@@ -24,7 +24,6 @@
     $mensajes = new ListaMensajes();
     $mensajes->setFiltroEntre($sesion->get_user_id(), $usuario->getCodigo());
     $mensajes->setOrdenCodigo('DESC');
-    //$mensajes->setFiltroLeidos();
     $mensajes->cargarLista();
 ?>
 
@@ -109,9 +108,5 @@
             }
         }
     
-        /*$en_todas = new Enlace('mensajes-todos', 'Ver todos', '?include=usuario&form=mensajes_todos');
-        $en_todas->add_class('ui-boton ui-boton-azul');
-        $en_todas->show();*/
-        
     }
 ?>

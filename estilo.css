@@ -409,6 +409,11 @@ li {
     font-weight: bold;
 }
 
+.formulario .texto {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
 .listado .celda_info {
     font-size: 0.9em;
     font-style: italic;
@@ -734,16 +739,18 @@ a.ui-boton {
     background-image: url('img/sobre.png');
 }
 
-/* ESTILO DEL CHECKBOX */
+/* ESTILO DEL CHECKBOX | RADIO */
 
-.ui-cuerpo-checkbox {
+.ui-cuerpo-checkbox, 
+.ui-cuerpo-radio {
     height: 16px;
     margin: 4px 0px;
     position: relative;
     text-indent: 30px;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], 
+input[type="radio"] {
     height: 20px;
     left: 0px;
     opacity: 0;
@@ -752,7 +759,8 @@ input[type="checkbox"] {
     width: 24px;
 }
 
-.ui-mascara-checkbox {
+.ui-mascara-checkbox, 
+.ui-mascara-radio {
     background-color: #fff;
     border: 2px solid #eaedf1;
     border-radius: 2px;
@@ -765,7 +773,8 @@ input[type="checkbox"] {
     z-index: -1;
 }
  
-input[type="checkbox"]:checked + span:after {
+input[type="checkbox"]:checked + span:after, 
+input[type="radio"]:checked + span:after {
     color: #202226;  
     content: "✔";
     left: 2px;
