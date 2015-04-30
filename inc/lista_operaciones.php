@@ -24,9 +24,14 @@ class ListaOperaciones {
         $this->puntero = 0;
     }
     
-    public function setFiltroUsuario($usuario) {
+    public function setFiltroComprador($usuario) {
         $this->verificarFiltro();
         $this->filtro .= " comprador = ".$usuario;
+    }
+    
+    public function setFiltroVendedor($usuario) {
+        $this->verificarFiltro();
+        $this->filtro .= " comprador != ".$usuario." AND publicacion IN (SELECT publicaciones.codigo FROM publicaciones, productos WHERE publicaciones.producto = productos.codigo AND productos.usuario = ".$usuario.")";
     }
     
     public function setFiltroConcretadas($concretada = FALSE) {
@@ -37,6 +42,10 @@ class ListaOperaciones {
         else {
             $this->filtro .= " concretada = 0";
         }
+    }
+    
+    public function borrarFiltro() {
+        $this->filtro = NULL;
     }
     
     public function setOrdenFecha($dir = 'ASC') {

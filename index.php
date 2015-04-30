@@ -76,6 +76,12 @@
         elseif (isset($_REQUEST['enviar-mensaje'])) {
             include_once('inc/enviar_mensaje.php');
         }
+        elseif (isset($_REQUEST['finalizar-compra'])) {
+            include_once('inc/finalizar_compra.php');
+        }
+        elseif (isset($_REQUEST['realizar-denuncia'])) {
+            include_once('inc/denunciar.php');
+        }
     }
     else {
         if (isLogin()) {

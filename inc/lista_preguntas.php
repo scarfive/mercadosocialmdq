@@ -42,8 +42,12 @@ class ListaPreguntas {
         $this->filtro .= " publicacion IN (SELECT publicaciones.codigo FROM publicaciones, productos WHERE publicaciones.producto = productos.codigo AND productos.usuario = ".$usuario.")";
     }
     
-    public function setOrdenFecha($dir = 'ASC') {
+    public function setOrdenFecha($dir = 'DESC') {
         $this->orden = " ORDER BY fecha ".$dir;
+    }
+    
+    public function setOrdenCodigo($dir = 'DESC') {
+        $this->orden = " ORDER BY codigo ".$dir;
     }
     
     public function cargarLista() {

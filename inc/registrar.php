@@ -58,7 +58,7 @@ if (empty($error)) {
     $usuario->setCorreo($_REQUEST['correo']);
     $usuario->setClave($_REQUEST['pass']);
 
-    if (!$conexion->ejecutar($usuario->insert())) {
+    if (!$usuario->insert()) {
         $alerta = new Alerta('alerta', 'OCURRIO UN ERROR AL INTENTAR REALIZAR EL REGISTRO');
     }
     

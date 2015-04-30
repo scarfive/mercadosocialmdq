@@ -1,16 +1,16 @@
 <?php
 
 /*
-  Clase Zonas
+  Clase Motivos
 
-  Permite manejar la tabla Zonas
+  Permite manejar la tabla Motivos
 
-  Created on : 18/04/2015, 17:15:09
+  Created on : 29/04/2015, 17:32:42
   Author     : Juan Manuel Scarciofolo
   License    : GPLv3
  */
 
-class Zonas {
+class Motivos {
 
     private $table;
     private $fields = array();
@@ -18,20 +18,20 @@ class Zonas {
     /* Mapeo de la tabla */
 
     private function Mapping() {
-        $this->table = "zonas";
-        $this->fields["codigo"] = Array("name" => "codigo", "flags" => "not_null primary_key unsigned auto_increment", "type" => "int", "len" => "11", "change" => false, "iskey" => 1);
-        $this->fields["zona"] = Array("name" => "zona", "flags" => "multiple_key", "type" => "string", "len" => "64", "change" => false, "iskey" => 0);
+        $this->table = "motivos";
+        $this->fields["codigo"] = array("name" => "codigo", "flags" => "not_null primary_key unsigned auto_increment", "type" => "int", "len" => "11", "change" => false, "iskey" => 1);
+        $this->fields["descripcion"] = array("name" => "descripcion", "flags" => "multiple_key", "type" => "string", "len" => "64", "change" => false, "iskey" => 0);
     }
 
     /* Constructor */
 
-    function Zonas($codigo = NULL) {
+    function Motivos($codigo = NULL) {
         $this->Mapping();
         if ($codigo != NULL) {
-            $query = "SELECT * FROM " . $this->table . " WHERE codigo = $codigo";
+            $query = "select * from " . $this->table . " where codigo = $codigo";
             $conn = new Conexion();
             $conn->conectar();
-            if ($result = $conn->ejecutar($query)) {
+            if (($result = $conn->ejecutar($query))) {
                 if ($row = mysql_fetch_array($result)) {
                     foreach ($row as $key => $value) {
                         $this->fields[$key]["value"] = $value;
@@ -52,10 +52,10 @@ class Zonas {
         $this->fields["codigo"]["change"] = true;
     }
 
-    function setZona($value) {
+    function setDescripcion($value) {
         $value = trim($value);
-        $this->fields["zona"]["value"] = $value;
-        $this->fields["zona"]["change"] = true;
+        $this->fields["descripcion"]["value"] = $value;
+        $this->fields["descripcion"]["change"] = true;
     }
 
     /*
@@ -67,12 +67,8 @@ class Zonas {
         return $this->fields["codigo"]["value"];
     }
 
-    function getZona() {
-        return $this->fields["zona"]["value"];
-    }
-    
-    function getZonas() {
-        return "select * from zonas";
+    function getDescripcion() {
+        return $this->fields["descripcion"]["value"];
     }
 
     /* Metodo Update */
@@ -80,14 +76,14 @@ class Zonas {
     function update() {
         $query = "";
         foreach ($this->fields as $key => $value) {
-            if ($this->fields[$key][change] = true) {
+            if ($this->fields[$key]["change"] == true) {
                 if ($query != "") {
                     $query .= ", ";
                 }
                 if ($this->fields[$key]["type"] == "int") {
-                    $query .= $key . " = " . intval($value);
+                    $query .= $key . " = " . intval($this->fields[$key]["value"]);
                 } else {
-                    $query .= $key . " = '" . textoSQL($value) . "'";
+                    $query .= $key . " = '" . htmlspecialchars(addslashes($this->fields[$key]["value"])) . "'";
                 }
             }
         }
@@ -109,7 +105,7 @@ class Zonas {
         $fields = "";
         $values = "";
         foreach ($this->fields as $key => $value) {
-            if ($this->fields[$key][change] = true) {
+            if ($this->fields[$key]["change"] == true) {
                 if ($fields != "") {
                     $fields .= ", ";
                 }
@@ -118,9 +114,9 @@ class Zonas {
                     $values .= ", ";
                 }
                 if ($this->fields[$key]["type"] == "int") {
-                    $values .= intval($value);
+                    $values .= intval($this->fields[$key]["value"]);
                 } else {
-                    $values .= "'" . textoSQL($value) . "'";
+                    $values .= "'" . htmlspecialchars(addslashes($this->fields[$key]["value"])) . "'";
                 }
             }
         }

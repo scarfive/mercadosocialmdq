@@ -12,9 +12,11 @@
     include_once('inc/enlace.php');
     include_once('inc/publicaciones.php');
     include_once('inc/productos.php');
+    include_once('inc/usuarios.php');
     
     $publicacion = new Publicaciones($_REQUEST['codigo']);
     $producto = new Productos($publicacion->getProducto());
+    $usuario = new Usuarios($producto->getUsuario());
     
     $es_propietario = FALSE;
     
@@ -39,6 +41,9 @@
 
         $en_comen = new Enlace('comentarios', $producto->getComentarios().' comentarios', '?include=usuario&form=ver_comentarios&codigo='.$publicacion->getCodigo());
         $en_comen->add_class('ui-enlace-icono ui-icono-mensaje');
+
+        $en_usuario = new Enlace('usuario', 'Publicado por '.$usuario->getApodo(), '?include=publicacion&form=ver_usuario&codigo='.$usuario->getCodigo());
+        $en_usuario->add_class('ui-enlace-icono ui-icono-usuario');
     ?>
     
     <div class="publicacion_detalles">
@@ -46,6 +51,7 @@
             <li><?php $en_vistas->show(); ?></li>
             <li><?php $en_calif->show(); ?></li>
             <li><?php $en_comen->show(); ?></li>
+            <li><?php $en_usuario->show(); ?></li>
         </ul>
     </div>
     
@@ -83,6 +89,10 @@
         $en_preguntar = new Enlace('preguntar', 'Hacer una pregunta', '?include=usuario&form=realizar_pregunta&codigo='.$_REQUEST['codigo']);
         $en_preguntar->add_class('ui-boton ui-boton-naranja');
         $en_preguntar->show();
+
+        $en_denunciar = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&publicacion=true&codigo='.$_REQUEST['codigo']);
+        $en_denunciar->add_class('ui-boton ui-boton-verde');
+        $en_denunciar->show();
     }
 ?>
 

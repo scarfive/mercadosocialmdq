@@ -23,7 +23,7 @@ class CampoOpciones extends Campo {
 
     public function show() {
         foreach ($this->opciones as $opcion) {
-            print '<div class="ui-cuerpo-radio"><input type="radio" name="' . parent::get_name() . '[]" value="' . $opcion['value'] . '" ' . parent::get_required() . ' ' . parent::get_readonly() . ' ' . parent::get_disabled() . ' ' . parent::get_parameters() . ' /><span class="ui-mascara-radio"></span>' . $opcion['label'] . '</div>';
+            print '<div class="ui-cuerpo-radio"><input type="radio" name="' . parent::get_name() . '" value="' . $opcion['value'] . '" required="' . parent::get_required() . '" ' . parent::get_readonly() . ' ' . parent::get_disabled() . ' ' . parent::get_parameters() . ' /><span class="ui-mascara-radio"></span>' . $opcion['label'] . '</div>';
         }
     }
 

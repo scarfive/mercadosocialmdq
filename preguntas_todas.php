@@ -20,6 +20,7 @@
     $preguntas = new ListaPreguntas();
     $preguntas->setFiltroRespondidas(TRUE);
     $preguntas->setFiltroUsuario($sesion->get_user_id());
+    $preguntas->setOrdenCodigo();
     $preguntas->cargarLista();
 ?>
 
@@ -32,7 +33,7 @@
     
         $publicacion = new Publicaciones($pregunta->getPublicacion());
         $producto = new Productos($publicacion->getProducto());
-        $usuario = new Usuarios($producto->getUsuario());
+        $usuario = new Usuarios($pregunta->getUsuario());
         
         $imagenes = $producto->getImagenes();
         
@@ -42,25 +43,44 @@
         
         print '<h2>'.$producto->getDescripcion().'</h2>';
         
-        $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?form=ver_usuario&codigo='.$usuario->getCodigo());
+        $en_vendedor = new Enlace('ver-vendedor', $sesion->get_user_name(), '?include=usuario&form=ver_usuario&codigo='.$sesion->get_user_id());
+        $en_comprador = new Enlace('ver-comprador', $usuario->getApodo(), '?include=usuario&form=ver_usuario&codigo='.$usuario->getCodigo());
         
         print '<p class="detalles">De ';
-        $en_usuario->show();
+        $en_vendedor->show();
+        print '</p>';
+        
+        print '<p class="detalles">Publicado hace '.getTiempoPasado($publicacion->getFecha()).'</p>';
+        
+//        print '</div>';
+//        
+//        print '<div class="cuadro_lista">';
+        
+        print '<p class="detalles">De ';
+        $en_comprador->show();
         print '</p>';
         
         print '<p class="detalles">Hace '.getTiempoPasado($pregunta->getFecha()).'</p>';
         
-        print '<p>PREGUNTA: '.$pregunta->getPregunta().'</p>';
+        print '<p>'.$pregunta->getPregunta().'</p>';
+        
+//        print '</div>';
+//        
+//        print '<div class="cuadro_lista">';
         
         $respuestas = new ListaRespuestas();
-        $respuestas->setFiltroPublicacion($publicacion->getCodigo());
+        $respuestas->setFiltroPregunta($pregunta->getCodigo());
         $respuestas->cargarLista();
         
         $respuesta = $respuestas->getSiguienteRespuesta();
         
+        print '<p class="detalles">De ';
+        $en_vendedor->show();
+        print '</p>';
+        
         print '<p class="detalles">Hace '.getTiempoPasado($respuesta->getFecha()).'</p>';
         
-        print '<p>RESPUESTA: '.$respuesta->getRespuesta().'</p>';
+        print '<p>'.$respuesta->getRespuesta().'</p>';
         
         print '</div>';
         

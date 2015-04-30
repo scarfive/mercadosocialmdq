@@ -12,14 +12,15 @@
     include_once('inc/boton.php');
     include_once('inc/campo.php');
     include_once('inc/campo_oculto.php');
-    include_once('inc/campo_booleano.php');
     include_once('inc/campo_opciones.php');
     include_once('inc/campo_texto.php');
     include_once('inc/formulario.php');
     include_once('inc/productos.php');
     include_once('inc/publicaciones.php');
+    include_once('inc/operaciones.php');
     
-    $publicacion = new Publicaciones($_REQUEST['codigo']);
+    $operacion = new Operaciones($_REQUEST['codigo']);
+    $publicacion = new Publicaciones($operacion->getPublicacion());
     $producto = new Productos($publicacion->getProducto());
 ?>
 
@@ -42,12 +43,12 @@
             array('label' => '5 &bigstar;&bigstar;&bigstar;&bigstar;&bigstar;', 'value' => '5') 
         );
 
-    $formulario = new Formulario('?include=usuario&form=listado_productos');
+    $formulario = new Formulario('?include=usuario&form=compra_terminada');
     $formulario->add_class('formulario_mensaje');
     
     $formulario->open();
     
-    $campo_codigo = new CampoOculto('codigo', $_REQUEST['codigo']);
+    $campo_codigo = new CampoOculto('codigo', $operacion->getCodigo());
     $campo_codigo->show();
     
     print '<h2>Se ha concretado con &eacute;xito la compra?</h2>';
@@ -76,6 +77,7 @@
     print '<h2>Comentenos algo sobre su experiencia con este vendedor:</h2>';
     
     $campo_obs_vendedor = new CampoTexto('obs_vendedor', '', '');
+    $campo_obs_vendedor->add_class('ui-icono-derecha');
     $campo_obs_vendedor->set_required();
     $campo_obs_vendedor->show();
     
@@ -94,13 +96,14 @@
     
     print '<h2>Comentenos algo sobre este producto que quiera contarle a los dem&aacute;s:</h2>';
     
-    $campo_cons = new CampoTexto('consulta', '', '');
-    $campo_cons->set_required();
-    $campo_cons->show();
+    $campo_obs_producto = new CampoTexto('obs_producto', '', '');
+    $campo_obs_producto->add_class('ui-icono-derecha');
+    $campo_obs_producto->set_required();
+    $campo_obs_producto->show();
     
     print '<p>&nbsp;</p>';
     
-    $boton = new Boton('realizar-pregunta', 'Hecho!');
+    $boton = new Boton('finalizar-compra', 'Hecho!');
     $boton->add_class('ui-boton-verde');
     $boton->show();
     

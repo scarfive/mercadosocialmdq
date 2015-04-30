@@ -1,11 +1,11 @@
 <?php
 /*
-    ver_compras.php
+    ver_ventas.php
     
-    Permite visualizar las compras realizadas
+    Permite visualizar las ventas de un usuario determinado
 */
 /* 
-    Created on : 26/04/2015, 01:16:12
+    Created on : 28/04/2015, 17:10:44
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
@@ -21,13 +21,13 @@
         $operaciones->setFiltroConcretadas();
     }
     
-    $operaciones->setFiltroComprador($sesion->get_user_id());
+    $operaciones->setFiltroVendedor($sesion->get_user_id());
     $operaciones->cargarLista();
 ?>
 
-<h1>Compras realizadas</h1>
+<h1>Ventas realizadas</h1>
 
-<p>Aqu&iacute; puede ver y administrar los productos comprados recientemente:</p>
+<p>Aqu&iacute; puede ver y administrar sus productos vendidos recientemente:</p>
 
 <?php 
     if ($operaciones->getCantidad() > 0) {
@@ -36,7 +36,7 @@
 
             $publicacion = new Publicaciones($operacion->getPublicacion());
             $producto = new Productos($publicacion->getProducto());
-            $usuario = new Usuarios($producto->getUsuario());
+            $usuario = new Usuarios($operacion->getComprador());
 
             $imagenes = $producto->getImagenes();
 
@@ -48,43 +48,39 @@
 
             $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?include=usuario&form=ver_usuario&codigo='.$usuario->getCodigo());
 
-            print '<p class="detalles">De ';
+            print '<p class="detalles">Comprado por ';
             $en_usuario->show();
             print '</p>';
 
-            print '<p class="detalles">Comprado hace '.getTiempoPasado($operacion->getFecha()).'</p>';
+            print '<p class="detalles">Vendido hace '.getTiempoPasado($operacion->getFecha()).'</p>';
             
             print '<p class="ayuda">Estas son las acciones que restan completar:</p>';
 
-            $en_contacto = new Enlace('contacto', 'Contactar al vendedor', '?include=usuario&form=escribir_mensaje&codigo='.$producto->getUsuario());
-            $en_contacto->add_class('ui-mini-boton ui-boton-verde');
+            $en_contacto = new Enlace('contacto', 'Contactar al comprador', '?include=usuario&form=escribir_mensaje&codigo='.$usuario->getCodigo());
+            $en_contacto->add_class('ui-mini-boton ui-boton-naranja');
             $en_contacto->show();
 
-            if (!validRequest('cantidad')) {
+            /*if (!validRequest('cantidad')) {
                 
-                $en_terminar = new Enlace('terminar', 'Compra finalizada', '?include=usuario&form=compra_terminar&codigo='.$operacion->getCodigo());
-                $en_terminar->add_class('ui-mini-boton ui-boton-naranja');
-                $en_terminar->show();
-
-                $en_denuncia = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&operacion=true&codigo='.$operacion->getCodigo());
-                $en_denuncia->add_class('ui-mini-boton ui-boton-azul');
+                $en_denuncia = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&codigo='.$operacion->getCodigo());
+                $en_denuncia->add_class('ui-mini-boton ui-boton-naranja');
                 $en_denuncia->show();
 
-            }
-                
+            }*/
+            
             print '</div>';
         }
         
     }
     else {
         print '<p>&nbsp;</p>';
-        print '<h1>No tiene compras recientes</h1>';
+        print '<h1>No tiene ventas recientes</h1>';
         print '<p>&nbsp;</p>';
     }
     
     if (!validRequest('cantidad')) {
-        $en_todas = new Enlace('compras-todas', 'Ver todas', '?include=usuario&form=ver_compras&cantidad=todas');
-        $en_todas->add_class('ui-boton ui-boton-azul');
+        $en_todas = new Enlace('compras-todas', 'Ver todas', '?include=usuario&form=ver_ventas&cantidad=todas');
+        $en_todas->add_class('ui-boton ui-boton-verde');
         $en_todas->show();
     }
 ?>

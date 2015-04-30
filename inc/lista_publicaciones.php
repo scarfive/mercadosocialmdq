@@ -27,7 +27,7 @@ class ListaPublicaciones {
     }
     
     public function setFiltroUsuario($usuario) {
-        $this->filtro = " WHERE producto IN (SELECT producto FROM productos WHERE usuario = ".$usuario.")";
+        $this->filtro = " WHERE producto IN (SELECT codigo FROM productos WHERE usuario = ".$usuario.")";
     }
     
     public function setOrdenPrecio($dir = 'ASC') {
@@ -57,6 +57,10 @@ class ListaPublicaciones {
     
     public function getPublicaciones() {
         return $this->publicaciones;
+    }
+    
+    public function getCantidad() {
+        return sizeof($this->publicaciones);
     }
     
 }

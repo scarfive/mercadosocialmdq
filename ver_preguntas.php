@@ -42,7 +42,7 @@
 
             print '<h2>'.$producto->getDescripcion().'</h2>';
 
-            $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?form=ver_usuario&codigo='.$usuario->getCodigo());
+            $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?include=usuario&form=ver_usuario&codigo='.$usuario->getCodigo());
 
             print '<p class="detalles">De ';
             $en_usuario->show();
