@@ -25,6 +25,7 @@ class Calificaciones {
         $this->fields["usuario"] = array("name" => "usuario", "flags" => "not_null multiple_key unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
         $this->fields["fecha"] = array("name" => "fecha", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
         $this->fields["calificacion"] = array("name" => "calificacion", "flags" => "not_null unsigned", "type" => "int", "len" => "11", "change" => false, "iskey" => 0);
+        $this->fields["observaciones"] = array("name" => "observaciones", "flags" => "", "type" => "string", "len" => "256", "change" => false, "iskey" => 0);
     }
 
     /* Constructor */
@@ -79,6 +80,12 @@ class Calificaciones {
         $this->fields["calificacion"]["change"] = true;
     }
 
+    function setObservaciones($value) {
+        $value = trim($value);
+        $this->fields["observaciones"]["value"] = $value;
+        $this->fields["observaciones"]["change"] = true;
+    }
+
     /*
      * Metodos Get 
      * Permiten acceder a las propiedades de la clase
@@ -102,6 +109,10 @@ class Calificaciones {
 
     function getCalificacion() {
         return $this->fields["calificacion"]["value"];
+    }
+
+    function getObservaciones() {
+        return $this->fields["observaciones"]["value"];
     }
 
     /* Metodo Update */

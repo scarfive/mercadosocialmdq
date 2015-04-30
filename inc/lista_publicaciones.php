@@ -59,5 +59,9 @@ class ListaPublicaciones {
         return $this->publicaciones;
     }
     
+    public function getCantidad() {
+        return sizeof($this->publicaciones);
+    }
+    
 }
 ?>

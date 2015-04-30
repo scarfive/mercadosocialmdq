@@ -22,6 +22,9 @@
                 if ($include == 'publicacion') {
                     include_once('menu_categorias.php'); 
                 }
+                if ($include == 'categorias') {
+                    include_once('menu_categorias.php'); 
+                }
             }
             else {
                 include('menu_categorias.php'); 

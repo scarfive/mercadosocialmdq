@@ -52,7 +52,7 @@ if (empty($error)) {
         $usuario->setClave($_REQUEST['pass']);
     }
 
-    if (!$conexion->ejecutar($usuario->update())) {
+    if (!$usuario->update()) {
         $alerta = new Alerta('alerta', 'OCURRIO UN ERROR AL INTENTAR GUARDAR LOS CAMBIOS');
     }
     

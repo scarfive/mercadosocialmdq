@@ -19,7 +19,7 @@
     
     $usuario = new Usuarios($_REQUEST['codigo']);
     
-    $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?form=ver_usuario&codigo='.$usuario->getCodigo());
+    $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?include=usuario&form=ver_usuario&codigo='.$usuario->getCodigo());
 ?>
 
 <h1>Enviar un mensaje</h1>
@@ -33,7 +33,7 @@
 <div class="cuadro_formulario_mensaje">
 
     <?php
-        $formulario = new Formulario('?include=usuario&form=ver_compras');
+        $formulario = new Formulario('?include=usuario&form=mensajes_usuario&codigo='.$usuario->getCodigo());
         $formulario->add_class('formulario_mensaje');
 
         $formulario->open();

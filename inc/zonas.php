@@ -28,18 +28,10 @@ class Zonas {
     function Zonas($codigo = NULL) {
         $this->Mapping();
         if ($codigo != NULL) {
-            $sel = "";
-            foreach ($this->fields as $key => $value) {
-                if (!$this->fields[$key]["iskey"]) {
-                    if (trim($sel) != "") {
-                        $sel .= ", ";
-                    }
-                    $sel .= $key;
-                }
-            }
-            $select = "select " . $sel . " from " . $this->table . " where codigo = $codigo";
-            $query = new DatabaseQuery();
-            if ($result = $query->executeQuery($select)) {
+            $query = "SELECT * FROM " . $this->table . " WHERE codigo = $codigo";
+            $conn = new Conexion();
+            $conn->conectar();
+            if ($result = $conn->ejecutar($query)) {
                 if ($row = mysql_fetch_array($result)) {
                     foreach ($row as $key => $value) {
                         $this->fields[$key]["value"] = $value;
@@ -102,7 +94,13 @@ class Zonas {
         if (trim($query) == "") {
             return false;
         }
-        return "update " . $this->table . " set " . $query . " where codigo = " . $this->fields["codigo"]["value"];
+        $query = "UPDATE " . $this->table . " SET " . $query . " WHERE codigo = " . $this->fields["codigo"]["value"];
+        $conn = new Conexion();
+        $conn->conectar();
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        return TRUE;
     }
 
     /* Metodo Insert */
@@ -129,13 +127,25 @@ class Zonas {
         if (trim($fields) == "" || trim($values) == "") {
             return false;
         }
-        return "insert into " . $this->table . " (" . $fields . ") values (" . $values . ") where codigo = " . $this->fields["codigo"]["value"];
+        $query = "INSERT INTO " . $this->table . " (" . $fields . ") VALUES (" . $values . ")";
+        $conn = new Conexion();
+        $conn->conectar();
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        return TRUE;
     }
 
     /* Metodo Delete */
 
     function delete() {
-        return "delete from " . $this->table . " where codigo = " . $this->fields["codigo"]["value"];
+        $query = "DELETE FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
+        $conn = new Conexion();
+        $conn->conectar();
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        return TRUE;
     }
 
 }

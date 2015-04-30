@@ -79,7 +79,7 @@
             }
             print ' con ';
             
-            $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?form=ver_usuario&codigo='.$usuario->getCodigo());
+            $en_usuario = new Enlace('ver-usuario', $usuario->getApodo(), '?include=usuario&form=ver_usuario&codigo='.$usuario->getCodigo());
             $en_usuario->show();
             
             print '</h2>';

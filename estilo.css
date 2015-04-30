@@ -64,6 +64,13 @@
     
 }
 
+.cuadro_personaje {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    min-height: 300px;
+    padding-left: 160px;
+}
+
 .barra_opciones {
     float: left;
     height: 50px;
@@ -607,6 +614,11 @@ li {
     margin-right: 0.2em;
     padding: 12px;
     vertical-align: top;
+}
+
+p > .ui-icono {
+    line-height: 24px;
+    color: #f00;
 }
 
 .ui-enlace {

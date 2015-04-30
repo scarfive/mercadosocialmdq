@@ -170,8 +170,9 @@ function plural($str) {
 }
 
 function genero($str) {
-    $ultima_letra = substr($str, -1);
-    if ($ultima_letra == 'a') {
+    /*$ultima_letra = substr($str, -1);
+    if ($ultima_letra == 'a') {*/
+    if ($str == 'hora') {
         return 'a';
     }
     return NULL;
