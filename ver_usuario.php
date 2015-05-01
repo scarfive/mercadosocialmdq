@@ -70,7 +70,7 @@
 
 <p>&nbsp;</p>
     
-<p><span class="ui-icono ui-icono-estrella"></span>Su puntaje en Mercado Social es de <?php print $puntaje->calcular(); ?>
+<p><span class="ui-icono ui-icono-estrella"></span>El puntaje dado por otros usuarios de Mercado Social es de <?php print $puntaje->calcular(); ?>
     
     <div class="grafica_barra grafica_barra_chico">
         <?php
@@ -144,3 +144,11 @@
     </ul>
     
 </div>
+
+<p>&nbsp;</p>
+
+<?php
+    $en_tienda = new Enlace('ver-tienda', 'Visitar tienda', '?include=productos&form=tienda&codigo='.$usuario->getCodigo());
+    $en_tienda->add_class('ui-boton ui-boton-naranja');
+    $en_tienda->show();
+?>

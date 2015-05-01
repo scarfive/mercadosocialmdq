@@ -14,14 +14,13 @@
 ?>
 <div id="principal">
     
-    <?php
+    <?php 
         if (isset($formulario)) {
             include_once($formulario.'.php'); 
         }
         else {
             include_once('grilla.php'); 
         }
-        
     ?>
     
 </div>

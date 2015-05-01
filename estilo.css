@@ -578,6 +578,44 @@ li {
     width: 100%;
 }
 
+.tabla_formulario_busqueda {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.tabla_formulario_busqueda td {
+    margin: 0px;
+    padding: 0px;
+}
+
+.tabla_formulario_busqueda .celda_campo {
+    width: 70%;
+}
+
+.tabla_formulario_busqueda .celda_boton {
+    width: 30%;
+}
+
+.formulario_busqueda {
+    display: inline-block;
+}
+
+.formulario_busqueda input {
+    display: inline-block;
+    float: left;
+}
+
+.formulario_busqueda input[type='text'] {
+    height: 1.6em;
+    width: 80%;
+}
+
+.formulario_busqueda input[type='submit'] {
+    padding: 0.7em;
+    width: 100%;
+}
+
 
 
 /*

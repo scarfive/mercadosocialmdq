@@ -15,11 +15,15 @@ class ListaPublicaciones {
     private $publicaciones;
     private $filtro;
     private $orden;
+    private $limite;
+    private $cantidad;
 
     public function __construct() {
         $this->publicaciones = array();
         $this->filtro = NULL;
         $this->orden = NULL;
+        $this->limite = NULL;
+        $this->cantidad = NULL;
     }
     
     public function setFiltroCategoria($categoria) {
@@ -30,12 +34,40 @@ class ListaPublicaciones {
         $this->filtro = " WHERE producto IN (SELECT codigo FROM productos WHERE usuario = ".$usuario.")";
     }
     
+    public function novedades() {
+        $this->setOrdenFecha('DESC');
+        $this->setLimite(0);
+        $this->setCantidad(20);
+    }
+    
+    public function loMasVisto() {
+        $this->setOrdenVistas('DESC');
+        $this->setLimite(0);
+        $this->setCantidad(20);
+    }
+    
+    public function busquedaPorDescripcion($busqueda) {
+        $this->filtro = " WHERE producto IN (SELECT codigo FROM productos WHERE descripcion LIKE '%".$busqueda."%')";
+    }
+    
     public function setOrdenPrecio($dir = 'ASC') {
         $this->orden = " ORDER BY precio ".$dir;
     }
     
     public function setOrdenFecha($dir = 'ASC') {
         $this->orden = " ORDER BY fecha ".$dir;
+    }
+    
+    public function setOrdenVistas($dir = 'ASC') {
+        $this->orden = " ORDER BY vistas ".$dir;
+    }
+    
+    public function setLimite($limite) {
+        $this->limite = $limite;
+    }
+    
+    public function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
     }
     
     public function cargarLista() {
@@ -47,6 +79,9 @@ class ListaPublicaciones {
         }
         if (!empty($this->orden)) {
             $query .= $this->orden;
+        }
+        if (!empty($this->limite) && !empty($this->cantidad)) {
+            $query .= " LIMIT ".$this->limite.", ".$this->cantidad;
         }
         if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {

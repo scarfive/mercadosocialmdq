@@ -24,6 +24,22 @@ if (validRequest('usuario')) {
     $publicaciones->setFiltroUsuario($_REQUEST['usuario']);
 }
 
+if (validRequest('novedades')) {
+    $publicaciones->novedades();
+    print '<h1>Ultimas publicaciones realizadas</h1>';
+    print '<p>&nbsp;</p>';
+}
+
+if (validRequest('visto')) {
+    $publicaciones->loMasVisto();
+    print '<h1>Las publicaciones m&aacute;s vistas</h1>';
+    print '<p>&nbsp;</p>';
+}
+
+if (validRequest('busqueda')) {
+    $publicaciones->busquedaPorDescripcion($_REQUEST['busqueda']);
+}
+
 if (validRequest('orden')) {
     switch ($_REQUEST['orden']) {
         case 'fecha':
@@ -33,6 +49,14 @@ if (validRequest('orden')) {
             $publicaciones->setOrdenPrecio();
             break;
     }
+}
+
+if (validRequest('limite')) {
+    $publicaciones->setLimite($_REQUEST['limite']);
+}
+
+if (validRequest('cantidad')) {
+    $publicaciones->setCantidad($_REQUEST['cantidad']);
 }
 
 $publicaciones->cargarLista();

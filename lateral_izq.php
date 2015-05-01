@@ -15,6 +15,8 @@
     <div class="cuadro_opciones">
         
         <?php 
+            include('menu_principal.php'); 
+        
             if (isset($include)) {
                 if ($include == 'usuario') {
                     include_once('menu_panel.php'); 
