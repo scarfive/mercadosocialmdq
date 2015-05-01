@@ -55,18 +55,22 @@
             print '<p class="detalles">Vendido hace '.getTiempoPasado($operacion->getFecha()).'</p>';
             
             print '<p class="ayuda">Estas son las acciones que restan completar:</p>';
+            
+            $en_datos = new Enlace('datos', 'Datos del comprador', '?include=usuario&form=datos_usuario&operacion='.$operacion->getCodigo().'&codigo='.$usuario->getCodigo());
+            $en_datos->add_class('ui-mini-boton ui-boton-azul');
+            $en_datos->show();
 
             $en_contacto = new Enlace('contacto', 'Contactar al comprador', '?include=usuario&form=escribir_mensaje&codigo='.$usuario->getCodigo());
-            $en_contacto->add_class('ui-mini-boton ui-boton-naranja');
+            $en_contacto->add_class('ui-mini-boton ui-boton-verde');
             $en_contacto->show();
 
-            /*if (!validRequest('cantidad')) {
+            if (!validRequest('cantidad')) {
                 
-                $en_denuncia = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&codigo='.$operacion->getCodigo());
+                $en_denuncia = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&operacion=true&codigo='.$operacion->getCodigo());
                 $en_denuncia->add_class('ui-mini-boton ui-boton-naranja');
                 $en_denuncia->show();
 
-            }*/
+            }
             
             print '</div>';
         }

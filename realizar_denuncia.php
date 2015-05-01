@@ -20,24 +20,34 @@
     include_once('inc/operaciones.php');
     include_once('inc/motivos.php');
     include_once('inc/lista_motivos.php');
+    include_once('inc/usuarios.php');
     
     $codigo = $_REQUEST['codigo'];
     
     $operacion = NULL;
     $publicacion = NULL;
     $producto = NULL;
+    $usuario = NULL;
     
     if (validRequest('publicacion')) {
         $publicacion = new Publicaciones($codigo);
         $producto = new Productos($publicacion->getProducto());
+        $usuario = new Usuarios($producto->getUsuario());
     }
     elseif (validRequest('operacion')) {
         $operacion = new Operaciones($codigo);
         $publicacion = new Publicaciones($operacion->getPublicacion());
         $producto = new Productos($publicacion->getProducto());
+        
+        if ($producto->getUsuario() == $sesion->get_user_id()) {
+            $usuario = new Usuarios($operacion->getComprador());
+        }
+        else {
+            $usuario = new Usuarios($producto->getUsuario());
+        }
     }
     else {
-        
+        /* ... */
     }
 
     $lista_motivos = new ListaMotivos();
@@ -53,7 +63,11 @@
 
 <p>&nbsp;</p>
 
-<h2>Su denuncia se radica en la siguiente publicaci&oacute;n:</h2>
+<h2><span class="ui-icono ui-icono-atencion"></span>Su denuncia es contra el usuario: <?php print $usuario->getApodo(); ?></h2>
+
+<p>&nbsp;</p>
+
+<h2>Y radica en la siguiente publicaci&oacute;n:</h2>
 
 <?php include('publicacion_miniatura.php'); ?>
 
@@ -86,7 +100,7 @@
     $campo_denunciante = new CampoOculto('denunciante', $sesion->get_user_id());
     $campo_denunciante->show();
     
-    $campo_denunciado = new CampoOculto('denunciado', $producto->getUsuario());
+    $campo_denunciado = new CampoOculto('denunciado', $usuario->getCodigo());
     $campo_denunciado->show();
     
     print '<p>Indique uno o m&aacute;s motivos que considere relevantes:</p>';
