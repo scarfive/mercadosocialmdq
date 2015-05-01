@@ -56,6 +56,10 @@
             
             print '<p class="ayuda">Estas son las acciones que restan completar:</p>';
 
+            $en_datos = new Enlace('datos', 'Datos del vendedor', '?include=usuario&form=datos_usuario&operacion='.$operacion->getCodigo().'&codigo='.$producto->getUsuario());
+            $en_datos->add_class('ui-mini-boton ui-boton-azul');
+            $en_datos->show();
+
             $en_contacto = new Enlace('contacto', 'Contactar al vendedor', '?include=usuario&form=escribir_mensaje&codigo='.$producto->getUsuario());
             $en_contacto->add_class('ui-mini-boton ui-boton-verde');
             $en_contacto->show();
