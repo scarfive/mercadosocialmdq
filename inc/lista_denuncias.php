@@ -26,7 +26,7 @@ class ListaDenuncias {
     
     public function setFiltroUsuario($usuario) {
         $this->verificarFiltro();
-        $this->filtro .= " usuario = ".$usuario;
+        $this->filtro .= " para = ".$usuario;
     }
     
     public function setOrdenCodigo($dir = 'ASC') {
@@ -40,14 +40,14 @@ class ListaDenuncias {
     public function cargarDenuncias() {
         $conn = new Conexion();
         $conn->conectar();
-        $select = "SELECT codigo FROM denuncias";
+        $query = "SELECT codigo FROM denuncias";
         if (!empty($this->filtro)) {
             $query .= $this->filtro;
         }
         if (!empty($this->orden)) {
             $query .= $this->orden;
         }
-        if (($result = $conn->ejecutar($select))) {
+        if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {
                 $this->denuncias[] = new Denuncias($row[0]);
             }

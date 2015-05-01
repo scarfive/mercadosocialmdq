@@ -796,6 +796,30 @@ a.ui-boton {
     background-image: url('img/atencion.png');
 }
 
+.ui-icono-lugar {
+    background-image: url('img/lugar.png');
+}
+
+.ui-icono-casa {
+    background-image: url('img/casa.png');
+}
+
+.ui-icono-corazon {
+    background-image: url('img/corazon.png');
+}
+
+.ui-icono-bandera {
+    background-image: url('img/bandera.png');
+}
+
+.ui-icono-dinero {
+    background-image: url('img/dinero.png');
+}
+
+.ui-icono-telefono {
+    background-image: url('img/telefono.png');
+}
+
 /* ESTILO DEL CHECKBOX | RADIO */
 
 .ui-cuerpo-checkbox, 

@@ -35,15 +35,15 @@ class Publicaciones {
         $this->Mapping();
         if ($codigo != NULL) {
             $select = "select * from ".$this->table." where codigo = ".$codigo;
-                $conn = new Conexion();
-                $conn->conectar();
-                if($result = $conn->ejecutar($select)) {
-                    if($row = mysql_fetch_array($result)) {
-                        foreach($row as $key=>$value) {
-                            $this->fields[$key]["value"] = $value;
-                        }
+            $conn = new Conexion();
+            $conn->conectar();
+            if($result = $conn->ejecutar($select)) {
+                if($row = mysql_fetch_array($result)) {
+                    foreach($row as $key=>$value) {
+                        $this->fields[$key]["value"] = $value;
                     }
                 }
+            }
         }
     }
 
