@@ -15,39 +15,43 @@ class ListaPublicaciones {
     private $publicaciones;
     private $filtro;
     private $orden;
-    private $limite;
+    private $inicio;
     private $cantidad;
 
     public function __construct() {
         $this->publicaciones = array();
         $this->filtro = NULL;
         $this->orden = NULL;
-        $this->limite = NULL;
+        $this->inicio = NULL;
         $this->cantidad = NULL;
     }
     
     public function setFiltroCategoria($categoria) {
-        $this->filtro = " WHERE producto IN (SELECT producto FROM cat_productos WHERE categoria = ".$categoria.")";
+        $this->verificarFiltro();
+        $this->filtro .= " producto IN (SELECT producto FROM cat_productos WHERE categoria = ".$categoria.")";
     }
     
     public function setFiltroUsuario($usuario) {
-        $this->filtro = " WHERE producto IN (SELECT codigo FROM productos WHERE usuario = ".$usuario.")";
+        $this->verificarFiltro();
+        $this->filtro .= " producto IN (SELECT codigo FROM productos WHERE usuario = ".$usuario.")";
+    }
+    
+    public function setFiltroActivas($activa = 1) {
+        $this->verificarFiltro();
+        $this->filtro .= " activa = ".$activa;
     }
     
     public function novedades() {
         $this->setOrdenFecha('DESC');
-        $this->setLimite(0);
-        $this->setCantidad(20);
     }
     
     public function loMasVisto() {
         $this->setOrdenVistas('DESC');
-        $this->setLimite(0);
-        $this->setCantidad(20);
     }
     
     public function busquedaPorDescripcion($busqueda) {
-        $this->filtro = " WHERE producto IN (SELECT codigo FROM productos WHERE descripcion LIKE '%".$busqueda."%')";
+        $this->verificarFiltro();
+        $this->filtro ." producto IN (SELECT codigo FROM productos WHERE descripcion LIKE '%".$busqueda."%')";
     }
     
     public function setOrdenPrecio($dir = 'ASC') {
@@ -62,8 +66,8 @@ class ListaPublicaciones {
         $this->orden = " ORDER BY vistas ".$dir;
     }
     
-    public function setLimite($limite) {
-        $this->limite = $limite;
+    public function setInicio($inicio) {
+        $this->inicio = $inicio;
     }
     
     public function setCantidad($cantidad) {
@@ -74,14 +78,14 @@ class ListaPublicaciones {
         $conn = new Conexion();
         $conn->conectar();
         $query = "SELECT codigo FROM publicaciones";
-        if (!empty($this->filtro)) {
+        if (!is_null($this->filtro)) {
             $query .= $this->filtro;
         }
-        if (!empty($this->orden)) {
+        if (!is_null($this->orden)) {
             $query .= $this->orden;
         }
-        if (!empty($this->limite) && !empty($this->cantidad)) {
-            $query .= " LIMIT ".$this->limite.", ".$this->cantidad;
+        if (!is_null($this->inicio) && !is_null($this->cantidad)) {
+            $query .= " LIMIT ".$this->inicio.", ".$this->cantidad;
         }
         if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {
@@ -96,6 +100,28 @@ class ListaPublicaciones {
     
     public function getCantidad() {
         return sizeof($this->publicaciones);
+    }
+    
+    public function getTotal() {
+        $conn = new Conexion();
+        $conn->conectar();
+        $query = "SELECT codigo FROM publicaciones";
+        if (!is_null($this->filtro)) {
+            $query .= $this->filtro;
+        }
+        if ($conn->ejecutar($query)) {
+            return $conn->registros();
+        }
+        return FALSE;
+    }
+    
+    private function verificarFiltro() {
+        if (empty($this->filtro)) {
+            $this->filtro = ' WHERE ';
+        }
+        else {
+            $this->filtro .= ' AND ';
+        }
     }
     
 }

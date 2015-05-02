@@ -77,12 +77,14 @@ CREATE TABLE IF NOT EXISTS `publicaciones` (
   `fecha` datetime DEFAULT NULL,
   `limite` datetime DEFAULT NULL,
   `vistas` int(11) unsigned NOT NULL DEFAULT '0',
+  `activa` boolean NOT NULL DEFAULT FALSE,
    PRIMARY KEY (`codigo`),
    INDEX (`producto`),
    INDEX (`precio`),
    INDEX (`fecha`),
    INDEX (`limite`),
-   INDEX (`vistas`)
+   INDEX (`vistas`),
+   INDEX (`activa`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 
@@ -93,12 +95,14 @@ CREATE TABLE IF NOT EXISTS `publicaciones_canceladas` (
   `fecha` datetime DEFAULT NULL,
   `limite` datetime DEFAULT NULL,
   `vistas` int(11) unsigned NOT NULL DEFAULT '0',
+  `activa` boolean NOT NULL DEFAULT FALSE,
    PRIMARY KEY (`codigo`),
    INDEX (`producto`),
    INDEX (`precio`),
    INDEX (`fecha`),
    INDEX (`limite`),
-   INDEX (`vistas`)
+   INDEX (`vistas`),
+   INDEX (`activa`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 

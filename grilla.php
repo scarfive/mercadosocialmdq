@@ -13,8 +13,14 @@
 include_once('inc/publicaciones.php');
 include_once('inc/lista_publicaciones.php');
 include_once('inc/productos.php');
+include_once('inc/usuarios.php');
+include_once('inc/enlace.php');
+include_once('inc/paginador.php');
+
+$_CANTIDAD = 15;
 
 $publicaciones = new ListaPublicaciones();
+$publicaciones->setFiltroActivas();
 
 if (validRequest('categoria')) {
     $publicaciones->setFiltroCategoria($_REQUEST['categoria']);
@@ -22,6 +28,9 @@ if (validRequest('categoria')) {
 
 if (validRequest('usuario')) {
     $publicaciones->setFiltroUsuario($_REQUEST['usuario']);
+    $usuario = new Usuarios($_REQUEST['usuario']);
+    print '<h1>Publicaciones de '.$usuario->getApodo().'</h1>';
+    print '<p>&nbsp;</p>';
 }
 
 if (validRequest('novedades')) {
@@ -51,12 +60,18 @@ if (validRequest('orden')) {
     }
 }
 
-if (validRequest('limite')) {
-    $publicaciones->setLimite($_REQUEST['limite']);
+if (validRequest('inicio')) {
+    $publicaciones->setInicio($_REQUEST['inicio']);
+}
+else {
+    $publicaciones->setInicio(0);
 }
 
 if (validRequest('cantidad')) {
     $publicaciones->setCantidad($_REQUEST['cantidad']);
+}
+else {
+    $publicaciones->setCantidad($_CANTIDAD);
 }
 
 $publicaciones->cargarLista();
@@ -72,3 +87,8 @@ $publicaciones->cargarLista();
     ?>
     
 </div>
+
+<?php
+    $paginador = new Paginador($_CANTIDAD, $publicaciones->getTotal());
+    $paginador->show();
+?>

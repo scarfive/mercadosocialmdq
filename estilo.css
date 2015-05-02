@@ -22,13 +22,13 @@
 
 .barra {
     padding: 1% 2%;
-    width: 96%;
+    //width: 96%;
 }
 
 #contenedor {
     margin: 0px auto;
     min-height: 200px;
-    width: 100%;
+    //width: 100%;
 }
 
 .lateral {
@@ -236,6 +236,10 @@ p.publicacion_info {
     margin: 0.4em 0em;
 }
 
+.cuadro_lista .resaltado {
+    margin: 0.8em 0em;
+}
+
 .cuadro_lista .ayuda {
     margin: 0.8em 0em;
 }
@@ -363,6 +367,10 @@ a:hover {
     color: #9ea7b3;
 }
 
+.cuadro_lista .resaltado {
+    color: #323a45;
+}
+
 .cuadro_lista .ayuda {
     color: #666f7b;
 }
@@ -462,6 +470,11 @@ li {
 
 .cuadro_lista .detalles {
     font-size: 0.8em;
+}
+
+.cuadro_lista .resaltado {
+    font-size: 0.9em;
+    font-weight: bold;
 }
 
 .cuadro_lista .ayuda {
@@ -649,7 +662,7 @@ li {
     display: inline-block;
     margin-right: 0.2em;
     padding: 12px;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 p > .ui-icono {
@@ -1027,4 +1040,24 @@ input[type="file"] {
     float: left;
     height: 100%;
     width: 10%;
+}
+
+
+/*
+    PAGINADOR
+*/
+
+.paginador {
+    float: left;
+    margin: 0% 3%;
+    width: 100%;
+}
+
+.paginador ul {
+    list-style-type: none;
+}
+
+.paginador ul li {
+    background-color: transparent;
+    float: left;
 }

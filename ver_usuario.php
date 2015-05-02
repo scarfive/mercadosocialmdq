@@ -148,7 +148,7 @@
 <p>&nbsp;</p>
 
 <?php
-    $en_tienda = new Enlace('ver-tienda', 'Visitar tienda', '?include=productos&form=tienda&codigo='.$usuario->getCodigo());
+    $en_tienda = new Enlace('ver-tienda', 'Ver publicaciones', '?include=publicacion&usuario='.$usuario->getCodigo());
     $en_tienda->add_class('ui-boton ui-boton-naranja');
     $en_tienda->show();
 ?>

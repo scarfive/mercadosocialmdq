@@ -1,29 +1,32 @@
 <?php
 /*
-    ver_calificaciones.php
+    datos_producto.php
     
-    Permite mostrar las calificaciones realizadas
- * 
+    Permite visualizar la informacion de un producto
 */
 /* 
-    Created on : 01/05/2015, 21:15:45
+    Created on : 02/05/2015, 11:18:46
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
-    include_once('inc/usuarios.php');
-    include_once('inc/productos.php');
     include_once('inc/publicaciones.php');
+    include_once('inc/productos.php');
     include_once('inc/calificaciones.php');
     include_once('inc/lista_calificaciones.php');
     
+    $publicacion = new Publicaciones($_REQUEST['codigo']);
+    $producto = new Productos($publicacion->getProducto());
+    
     $calificaciones = new ListaCalificaciones();
-    $calificaciones->setFiltroUsuario($sesion->get_user_id());
+    $calificaciones->setFiltroProducto($producto->getCodigo());
     $calificaciones->cargarLista();
 ?>
 
-<h1>Calificaciones recibidas</h1>
+<h1>Informaci&oacute;n sobre:</h1>
 
-<p>Aqu&iacute; puede ver las calificaciones recibidas en cada uno de sus productos:</p>
+<h1><?php print $producto->getDescripcion(); ?></h1>
+
+<p>&nbsp;</p>
 
 <?php 
     if ($calificaciones->getCantidad() > 0) {
@@ -59,7 +62,7 @@
     }
     else {
         print '<p>&nbsp;</p>';
-        print '<h1>Sus productos todav&iacute;a no tienen calificaciones</h1>';
+        print '<h2>Este producto a&uacute;n no ha sido calificado</h2>';
         print '<p>&nbsp;</p>';
     }
 ?>

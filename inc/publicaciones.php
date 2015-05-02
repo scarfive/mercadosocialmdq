@@ -202,7 +202,7 @@ class Publicaciones {
     
     /* Suma uno al indicador de publicacion vista */
     
-    function sumarVista() {
+    public function sumarVista() {
         $query = "UPDATE " . $this->table . " SET vistas = vistas + 1 WHERE codigo = " . $this->fields["codigo"]["value"];
         $conn = new Conexion();
         $conn->conectar();
@@ -210,6 +210,13 @@ class Publicaciones {
             return FALSE;
         }
         return TRUE;
+    }
+    
+    /* Permite saber si una publicacion esta fuera de fecha */
+    
+    public function en_fecha() {
+        $ahora = date(sqlDateFormat());
+        return $this->fields["limite"]["value"] >= $ahora;
     }
 
 }

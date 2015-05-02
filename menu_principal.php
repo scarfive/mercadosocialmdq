@@ -17,6 +17,7 @@
 
 <?php
     $form_buscar = new Formulario('.');
+    $form_buscar->set_method('GET');
     $form_buscar->add_class('formulario_busqueda');
 
     $form_buscar->open();

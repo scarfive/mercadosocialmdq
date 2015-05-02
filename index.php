@@ -101,6 +101,8 @@
     }
     
     $sesion->iniciar();
+    
+    include('revisar_publicaciones.php');
 
 ?>
 <!DOCTYPE HTML>
@@ -137,16 +139,10 @@
                     include_once($formulario.'.php');
                 }
             ?>
+            
             <?php //include_once("lateral_der.php"); ?>
             <?php //include_once("pie.php"); ?>
             
-            <div id="barra_mensajes">
-                <?php
-                    if (!is_null($alerta)) {
-                        print $alerta->mostrar();
-                    }
-                ?>
-            </div>
         </div>
     </body>
 </html>
