@@ -94,9 +94,13 @@
         </a>
     </li>
 
-    <li><img src="img/estadisticas.png" />Estad&iacute;sticas</li>
+<!--    <li><img src="img/estadisticas.png" />Estad&iacute;sticas</li>-->
 
-    <li><img src="img/puntaje.png" />Mi puntaje</li>
+    <li>
+        <a href="?include=usuario&form=ver_puntaje">
+            <img src="img/puntaje.png" />Mi puntaje
+        </a>
+    </li>
 
     <li>
         <a href="?include=usuario&form=ver_preguntas">
@@ -109,6 +113,10 @@
         </a>
     </li>
     
-    <li><img src="img/calificacion.png" />Calificaciones</li>
+    <li>
+        <a href="?include=usuario&form=ver_calificaciones">
+            <img src="img/calificacion.png" />Calificaciones
+        </a>
+    </li>
 
 </ul>
