@@ -72,10 +72,10 @@ class ImageResize {
             imagejpeg($thumb_img, $this->nombre_imagen, 90);
         } 
         else if ($extension == 'gif') {
-            imagegif($thumb_img, $this->nombre_imagen, 90);
+            imagegif($thumb_img, $this->nombre_imagen);
         } 
         else if ($extension == 'png') {
-            imagepng($thumb_img, $this->nombre_imagen, 90);
+            imagepng($thumb_img, $this->nombre_imagen, 9);
         }
 
         imagedestroy($imagen);

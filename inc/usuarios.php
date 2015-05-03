@@ -29,6 +29,7 @@ class Usuarios {
         $this->fields["correo"] = Array("name" => "correo", "flags" => "", "type" => "string", "len" => "64", "change" => false, "iskey" => 0);
         $this->fields["alta"] = Array("name" => "alta", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
         $this->fields["clave"] = Array("name" => "clave", "flags" => "", "type" => "string", "len" => "64", "change" => false, "iskey" => 0);
+        $this->fields["resumen"] = Array("name" => "resumen", "flags" => "", "type" => "string", "len" => "256", "change" => false, "iskey" => 0);
         $this->fields["imagen"] = Array("name" => "imagen", "flags" => "", "type" => "string", "len" => "256", "change" => false, "iskey" => 0);
         $this->fields["conexion"] = Array("name" => "conexion", "flags" => "multiple_key binary", "type" => "datetime", "len" => "19", "change" => false, "iskey" => 0);
     }
@@ -115,6 +116,12 @@ class Usuarios {
         $this->fields["clave"]["change"] = true;
     }
 
+    function setResumen($value) {
+        $value = trim($value);
+        $this->fields["resumen"]["value"] = $value;
+        $this->fields["resumen"]["change"] = true;
+    }
+
     function setImagen($value) {
         $value = trim($value);
         $this->fields["imagen"]["value"] = $value;
@@ -171,6 +178,10 @@ class Usuarios {
         return $this->fields["clave"]["value"];
     }
 
+    function getResumen() {
+        return $this->fields["resumen"]["value"];
+    }
+
     function getImagen() {
         return $this->fields["imagen"]["value"];
     }
@@ -184,7 +195,7 @@ class Usuarios {
     function update() {
         $query = "";
         foreach ($this->fields as $key => $value) {
-            if ($this->fields[$key]["change"] == true) {
+            if ($this->fields[$key]["change"] && $key != 'imagen') {
                 if ($query != "") {
                     $query .= ", ";
                 }
@@ -208,6 +219,14 @@ class Usuarios {
         if (!$conn->ejecutar($query)) {
             return FALSE;
         }
+        $handler = new ImageHandler('imagen');
+        if ($handler->loadImages()) {
+            $img = $handler->getImageNames();
+            $query = "UPDATE " . $this->table . " SET imagen = '".$img[0]."' WHERE codigo = ".$this->fields["codigo"]["value"];
+            if (!$conn->ejecutar($query)) {
+                return FALSE;
+            }
+        }
         return TRUE;
     }
 
@@ -217,7 +236,7 @@ class Usuarios {
         $fields = "";
         $values = "";
         foreach ($this->fields as $key => $value) {
-            if ($this->fields[$key]["change"] == true) {
+            if ($this->fields[$key]["change"] && $key != 'imagen') {
                 if ($fields != "") {
                     $fields .= ", ";
                 }
@@ -249,6 +268,14 @@ class Usuarios {
         if (!$conn->ejecutar($query)) {
             return FALSE;
         }
+        $handler = new ImageHandler('imagen');
+        if ($handler->loadImages()) {
+            $img = $handler->getImageNames();
+            $query = "UPDATE " . $this->table . " SET imagen = '".$img[0]."' WHERE codigo = ".$this->fields['codigo']["value"];
+            if (!$conn->ejecutar($query)) {
+                return FALSE;
+            }
+        }
         return TRUE;
     }
 
@@ -273,7 +300,7 @@ class Usuarios {
     /* Permite saber si un correo ya ha sido registrado */
 
     function verificarCorreo($correo) {
-        return "select codigo from " . $this->table . " where correo = '" . $apodo . "'";
+        return "select codigo from " . $this->table . " where correo = '" . $correo . "'";
     }
 
 }

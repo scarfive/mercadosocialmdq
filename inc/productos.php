@@ -188,7 +188,7 @@ class Productos {
                 return FALSE;
             }
         }
-        $handler = new ImageHandler();
+        $handler = new ImageHandler('imagenes', 3);
         if ($handler->loadImages()) {
             $arr_img = $handler->getImageNames();
             $index = 0;
@@ -244,7 +244,7 @@ class Productos {
                 return FALSE;
             }
         }
-        $handler = new ImageHandler();
+        $handler = new ImageHandler('imagenes', 3);
         if ($handler->loadImages()) {
             $arr_img = $handler->getImageNames();
             print_r($arr_img);

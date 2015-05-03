@@ -10,6 +10,9 @@
     License    : GPLv3
 */
 
+include_once('inc/image_resize.php');
+include_once('inc/image_handler.php');
+
 $error = '';
 
 if (!validRequest('apellido')) {
@@ -27,12 +30,13 @@ elseif (!validRequest('telefono')) {
 elseif (!validRequest('correo')) {
     $error = 'Falta ingresar su correo electr&oacute;nico';
 }
+elseif (!validRequest('resumen')) {
+    $error = 'Debe ingresar un resumen sobre lo que hace';
+}
 
 if ($_REQUEST['zona'] == 0) {
     $error = 'Debe seleccionar el barrio donde reside';
 }
-
-//$usuario = new Usuarios();
 
 if (isset($_REQUEST['correo']) && $conexion->verificar($usuario->verificarCorreo($_REQUEST['correo']))) {
     $error = 'La direcci&oacute;n de correo ya ha sido registrada';
@@ -47,6 +51,8 @@ if (empty($error)) {
     $usuario->setTelefono($_REQUEST['telefono']);
     $usuario->setZona($_REQUEST['zona']);
     $usuario->setCorreo($_REQUEST['correo']);
+    $usuario->setResumen($_REQUEST['resumen']);
+    $usuario->setImagen(TRUE);
     
     if (validRequest($_REQUEST['pass'])) {
         $usuario->setClave($_REQUEST['pass']);

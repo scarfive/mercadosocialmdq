@@ -8,22 +8,26 @@
      */
     class ImageHandler {
         
+        private $field = 'imagen';
+        private $count = 1;
         private $path = 'uploads/';
         private $names = NULL;
 
-        public function __construct() {
+        public function __construct($field, $count = 1) {
+            $this->field = $field;
+            $this->count = $count;
             $this->names = array();
         }
         
         public function loadImages() {
-            if (!isset($_FILES["imagenes"])) {
+            if (!isset($_FILES[$this->field])) {
                 return FALSE;
             }
-            for ($index = 0; $index < 3; $index++) {
+            for ($index = 0; $index < $this->count; $index++) {
                 $name = '';
-                if (is_uploaded_file($_FILES["imagenes"]["tmp_name"][$index])) {
-                    $new_name = $this->path . $this->getPrefix() . $_FILES["imagenes"]["name"][$index];
-                    if (copy($_FILES["imagenes"]["tmp_name"][$index], $new_name)) {
+                if (is_uploaded_file($this->get_tmp_name($index))) {
+                    $new_name = $this->get_new_name($index);
+                    if (copy($this->get_tmp_name($index), $new_name)) {
                         $name = $new_name;
                         $resize = new ImageResize($name);
                         $resize->resize();
@@ -45,8 +49,26 @@
             return $this->names;
         }
         
-        public function getPrefix() {
+        private function getPrefix() {
             return time().'-';
+        }
+        
+        private function get_name($index = 0) {
+            if ($this->count > 1) {
+                return $_FILES[$this->field]["name"][$index];
+            }
+            return $_FILES[$this->field]["name"];
+        }
+        
+        private function get_tmp_name($index = 0) {
+            if ($this->count > 1) {
+                return $_FILES[$this->field]["tmp_name"][$index];
+            }
+            return $_FILES[$this->field]["tmp_name"];
+        }
+        
+        private function get_new_name($index = 0) {
+            return $this->path . $this->getPrefix() . $this->get_name($index);
         }
         
     }

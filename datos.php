@@ -13,6 +13,7 @@
     include_once('inc/campo.php');
     include_once('inc/campo_oculto.php');
     include_once('inc/campo_combo.php');
+    include_once('inc/campo_texto.php');
     include_once('inc/boton.php');
     include_once('inc/formulario.php');
     include_once('inc/zonas.php');
@@ -59,12 +60,22 @@
     $campo_zona->set_selected_option($usuario->getZona());
 
     $campo_pass = new Campo('pass', '', 'Nueva contrase&ntilde;a', 'password');
+    
+    $campo_res = new CampoTexto('resumen', '');
+    $campo_res->add_class('ui-icono-derecha');
+    $campo_res->set_placeholder('Algo sobre mi o sobre lo que hago');
+    $campo_res->set_required();
+    $campo_res->set_value($usuario->getResumen());
+    
+    $campo_img = new Campo('imagen', '', '', 'file');
 
     $boton = new Boton('editar-usuario', 'guardar cambios');
     $boton->add_class('ui-boton-verde');
 
     $formulario->open();
-
+    
+    print '<p>Informaci&oacute;n personal:</p>';
+    
     $campo_nombre->show();
     $campo_apellido->show();
     $campo_domicilio->show();
@@ -72,6 +83,14 @@
     $campo_correo->show();
     $campo_zona->show();
     $campo_pass->show();
+    
+    print '<p>Resumen:</p>';
+    
+    $campo_res->show();
+    
+    print getImagen($usuario->getImagen(), 'img_view');
+    
+    $campo_img->show();
 
     $boton->show();
 
