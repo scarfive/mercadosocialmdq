@@ -14,6 +14,7 @@
     include_once('inc/publicaciones.php');
     include_once('inc/operaciones.php');
     include_once('inc/lista_operaciones.php');
+    include_once('inc/paginador.php');
     
     $operaciones = new ListaOperaciones();
     
@@ -22,6 +23,16 @@
     }
     
     $operaciones->setFiltroComprador($sesion->get_user_id());
+    
+    if (validRequest('inicio')) {
+        $operaciones->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $operaciones->setInicio(0);
+    }
+    
+    $operaciones->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
     $operaciones->cargarLista();
 ?>
 
@@ -79,6 +90,10 @@
             print '</div>';
         }
         
+        if (validRequest('cantidad')) {
+            $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $operaciones->getTotal());
+            $paginador->show();
+        }
     }
     else {
         print '<p>&nbsp;</p>';

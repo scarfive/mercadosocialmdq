@@ -15,9 +15,21 @@
     include_once('inc/publicaciones.php');
     include_once('inc/calificaciones.php');
     include_once('inc/lista_calificaciones.php');
+    include_once('inc/paginador.php');
     
     $calificaciones = new ListaCalificaciones();
+    
     $calificaciones->setFiltroUsuario($sesion->get_user_id());
+    
+    if (validRequest('inicio')) {
+        $calificaciones->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $calificaciones->setInicio(0);
+    }
+    
+    $calificaciones->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
     $calificaciones->cargarLista();
 ?>
 
@@ -55,6 +67,9 @@
 
             print '</div>';
         }
+        
+        $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $calificaciones->getTotal());
+        $paginador->show();
         
     }
     else {

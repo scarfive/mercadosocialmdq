@@ -23,8 +23,10 @@ class Paginador {
     }
     
     public function show() {
-        print '<div class="paginador">';
-        print '<ul>';
+        if ($this->numero_paginadores < 2) {
+            return;
+        }
+        print '<div class="paginador"><ul>';
         for ($index = 0; $index < $this->numero_paginadores; $index++) {
             $inicio = $this->cantidad*$index;
             print '<li>';
@@ -39,8 +41,7 @@ class Paginador {
             $enlace->show();
             print '</li>';
         }
-        print '</ul>';
-        print '</div>';
+        print '</ul></div>';
     }
     
     private function setURI($inicio) {

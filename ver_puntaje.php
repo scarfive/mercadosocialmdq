@@ -15,9 +15,22 @@
     include_once('inc/operaciones.php');
     include_once('inc/puntajes.php');
     include_once('inc/lista_puntajes.php');
+    include_once('inc/puntaje_usuario.php');
+    include_once('inc/paginador.php');
     
     $puntajes = new ListaPuntajes();
+    
     $puntajes->setFiltroUsuario($sesion->get_user_id());
+    
+    if (validRequest('inicio')) {
+        $puntajes->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $puntajes->setInicio(0);
+    }
+    
+    $puntajes->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
     $puntajes->cargarLista();
 ?>
 
@@ -27,6 +40,14 @@
 
 <?php 
     if ($puntajes->getCantidad() > 0) {
+        
+        $puntaje = new PuntajeUsuario($sesion->get_user_id());
+        
+        print '<p>&nbsp;</p>';
+        
+        print '<h2>Su puntaje en Mercado Social es de '.$puntaje->calcular().'</h2>';
+        
+        print '<p>Esto es lo que los dem&aacute;s usuarios opinan de usted:</p>';
         
         foreach ($puntajes->getPuntajes() as $puntaje) {
 
@@ -57,6 +78,9 @@
 
             print '</div>';
         }
+        
+        $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $puntajes->getTotal());
+        $paginador->show();
         
     }
     else {

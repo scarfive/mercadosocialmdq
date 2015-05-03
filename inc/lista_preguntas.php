@@ -15,11 +15,15 @@ class ListaPreguntas {
     private $preguntas;
     private $filtro;
     private $orden;
+    private $inicio;
+    private $cantidad;
 
     public function __construct() {
         $this->preguntas = array();
         $this->filtro = NULL;
         $this->orden = NULL;
+        $this->inicio = NULL;
+        $this->cantidad = NULL;
     }
     
     public function setFiltroRespondidas($respondidas = FALSE) {
@@ -50,15 +54,26 @@ class ListaPreguntas {
         $this->orden = " ORDER BY codigo ".$dir;
     }
     
+    public function setInicio($inicio) {
+        $this->inicio = $inicio;
+    }
+    
+    public function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
+    }
+    
     public function cargarLista() {
         $conn = new Conexion();
         $conn->conectar();
         $query = "SELECT codigo FROM preguntas";
-        if (!empty($this->filtro)) {
+        if (!is_null($this->filtro)) {
             $query .= $this->filtro;
         }
-        if (!empty($this->orden)) {
+        if (!is_null($this->orden)) {
             $query .= $this->orden;
+        }
+        if (!is_null($this->inicio) && !is_null($this->cantidad)) {
+            $query .= " LIMIT ".$this->inicio.", ".$this->cantidad;
         }
         if (($result = $conn->ejecutar($query))) {
             while ($row = mysql_fetch_array($result)) {
@@ -73,6 +88,19 @@ class ListaPreguntas {
     
     public function getCantidad() {
         return sizeof($this->preguntas);
+    }
+    
+    public function getTotal() {
+        $conn = new Conexion();
+        $conn->conectar();
+        $query = "SELECT codigo FROM preguntas";
+        if (!is_null($this->filtro)) {
+            $query .= $this->filtro;
+        }
+        if ($conn->ejecutar($query)) {
+            return $conn->registros();
+        }
+        return FALSE;
     }
     
     private function verificarFiltro() {

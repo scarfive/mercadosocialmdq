@@ -293,7 +293,7 @@ class Productos {
     /* Indica si un producto ha sido publicado */
     
     function is_published() {
-        $query = "SELECT codigo FROM publicaciones WHERE producto = " . $this->fields["codigo"]["value"];
+        $query = "SELECT codigo FROM publicaciones WHERE producto = " . $this->fields["codigo"]["value"] . " AND activa = 1 ";
         $conn = new Conexion();
         $conn->conectar();
         if (!$conn->ejecutar($query)) {
@@ -321,7 +321,23 @@ class Productos {
     /* Devuelve los comentarios del producto */
 
     function getComentarios() {
-        $query = "SELECT COUNT(*) FROM comentarios WHERE producto = " . $this->fields["codigo"]["value"];
+        $query = "SELECT COUNT(*) FROM calificaciones WHERE producto = " . $this->fields["codigo"]["value"];
+        $conn = new Conexion();
+        $conn->conectar();
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        $valor = $conn->valor();
+        if (empty($valor)) {
+            return 0;
+        }
+        return $valor;
+    }
+    
+    /* Devuelve la publicacion actual donde se encuentra el producto */
+    
+    function getPublicacion() {
+        $query = "SELECT codigo FROM publicaciones WHERE producto = " . $this->fields["codigo"]["value"] . " ORDER BY fecha DESC";
         $conn = new Conexion();
         $conn->conectar();
         if (!$conn->ejecutar($query)) {

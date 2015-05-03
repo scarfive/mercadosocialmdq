@@ -41,8 +41,19 @@
         }
         else {
             $par = 0;
+            
             foreach ($arr_productos as $producto) {
+                
+                $publicacion = NULL;
+                
+                $publicado = $producto->is_published();
+                
+                if($publicado) {
+                    $publicacion = new Publicaciones($producto->getPublicacion());
+                }
+                
                 $img = $producto->getImagenes();
+                
                 print '<tr class="';
                 if ($par % 2) {
                     print 'fila_impar';
@@ -55,18 +66,36 @@
                 print '<td class="celda_imagen">'.getImagen($img[0]['imagen'], 'img_preview').'</td>';
                 
                 print '<td class="celda_titulo">'.$producto->getDescripcion().'</td>';
-                $categorias = '';
-                foreach ($producto->getCategorias() as $cat) {
-                    $categorias .= ' '.$cat['descripcion'].',';
+                
+                print '<td class="celda_info">';
+                
+                if ($publicado) {
+                    $en_vistas = new Enlace('vistas', $publicacion->getVistas().' vistas', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                    $en_vistas->add_class('ui-enlace-icono ui-icono-vista');
+                    $en_vistas->show();
                 }
                 
-                print '<td class="celda_info">'.quitarUltimoCaracter($categorias).'</td>';
+                $en_calif = new Enlace('calificacion', redondeo($producto->getCalificacion()).' de 5 puntos', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                $en_calif->add_class('ui-enlace-icono ui-icono-estrella');
+                $en_calif->show();
+
+                $en_comen = new Enlace('comentarios', $producto->getComentarios().' comentarios', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                $en_comen->add_class('ui-enlace-icono ui-icono-mensaje');
+                $en_comen->show();
+                
+                print '</td>';
+                
+                $categorias = '';
+                
+                foreach ($producto->getCategorias() as $cat) {
+                    $categorias .= $cat['descripcion'].'<br>';
+                }
+                
+                print '<td class="celda_categorias">'.quitarUltimoCaracter($categorias).'</td>';
                 
                 print '<td class="celda_opciones">';
                 
-                $publicacion = $producto->is_published();
-                
-                if (!$publicacion) {
+                if (!$publicado) {
                 
                     $enl_editar = new Enlace('editar', 'Editar', '?include=usuario&form=edicion_producto&codigo='.$producto->getCodigo());
                     $enl_editar->add_class('ui-enlace-icono ui-icono-lapiz');
@@ -83,7 +112,7 @@
                 }
                 else {
                     
-                    $enl_pub = new Enlace('ver', 'Publicado', '?include=usuario&form=ver_publicacion&codigo='.$publicacion);
+                    $enl_pub = new Enlace('ver', 'Publicado', '?include=usuario&form=ver_publicacion&codigo='.$publicacion->getCodigo());
                     $enl_pub->add_class('ui-enlace-icono ui-icono-candado');
                     $enl_pub->show();
                     
@@ -92,6 +121,7 @@
                 print '</td>';
                 
                 print '</tr>';
+                
                 $par++;
             }
         }

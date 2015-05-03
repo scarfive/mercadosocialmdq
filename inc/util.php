@@ -186,4 +186,11 @@ function extraerNombre($str) {
     return strtolower(quitarTildes($str));
 }
 
+function separarDireccion($direccion) {
+    $dir_parts = explode(' ', $direccion);
+    $altura = array_pop($dir_parts);
+    $calle = implode(' ', $dir_parts);
+    return array('calle' => $calle, 'altura' => $altura);
+}
+
 ?>

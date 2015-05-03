@@ -11,6 +11,8 @@
 */
     include_once('inc/alerta.php');
     include_once('inc/enlace.php');
+    include_once('lib/nusoap.php');
+    include_once('inc/enlace_mapa.php');
     include_once('inc/usuarios.php');
     include_once('inc/zonas.php');
     include_once('inc/puntaje_usuario.php');
@@ -69,9 +71,17 @@
         print '<h2><span class="ui-icono ui-icono-usuario"></span>'.$usuario->getNombre().' '.$usuario->getApellido().'</h2>';
         
         print '<p><span class="ui-icono ui-icono-sobre"></span>'.$usuario->getCorreo().'</p>';
-        print '<p><span class="ui-icono ui-icono-casa"></span>'.$usuario->getDomicilio().'</p>';
+        print '<p><span class="ui-icono ui-icono-casa"></span>'.$usuario->getDomicilio();
+        
+        $domicilio = separarDireccion($usuario->getDomicilio());
+        
+        $en_domicilio = new EnlaceMapa($domicilio['calle'], $domicilio['altura']);
+        $en_domicilio->show();
+        
+        print '</p>';
         
         $zona = new Zonas($usuario->getZona());
+        
         print '<p><span class="ui-icono ui-icono-lugar"></span>Barrio '.$zona->getZona().'</p>';
         
         print '<p><span class="ui-icono ui-icono-telefono"></span>'.$usuario->getTelefono().'</p>';

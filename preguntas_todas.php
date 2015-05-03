@@ -16,11 +16,22 @@
     include_once('inc/respuestas.php');
     include_once('inc/lista_preguntas.php');
     include_once('inc/lista_respuestas.php');
+    include_once('inc/paginador.php');
     
     $preguntas = new ListaPreguntas();
+    
     $preguntas->setFiltroRespondidas(TRUE);
     $preguntas->setFiltroUsuario($sesion->get_user_id());
     $preguntas->setOrdenCodigo();
+    $preguntas->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
+    if (validRequest('inicio')) {
+        $preguntas->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $preguntas->setInicio(0);
+    }
+    
     $preguntas->cargarLista();
 ?>
 
@@ -52,10 +63,6 @@
         
         print '<p class="detalles">Publicado hace '.getTiempoPasado($publicacion->getFecha()).'</p>';
         
-//        print '</div>';
-//        
-//        print '<div class="cuadro_lista">';
-        
         print '<p class="detalles">De ';
         $en_comprador->show();
         print '</p>';
@@ -63,10 +70,6 @@
         print '<p class="detalles">Hace '.getTiempoPasado($pregunta->getFecha()).'</p>';
         
         print '<p>'.$pregunta->getPregunta().'</p>';
-        
-//        print '</div>';
-//        
-//        print '<div class="cuadro_lista">';
         
         $respuestas = new ListaRespuestas();
         $respuestas->setFiltroPregunta($pregunta->getCodigo());
@@ -85,4 +88,7 @@
         print '</div>';
         
     }
+    
+    $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $preguntas->getTotal());
+    $paginador->show();
 ?>

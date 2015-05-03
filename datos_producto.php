@@ -9,13 +9,13 @@
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
-    include_once('inc/publicaciones.php');
+    //include_once('inc/publicaciones.php');
     include_once('inc/productos.php');
     include_once('inc/calificaciones.php');
     include_once('inc/lista_calificaciones.php');
     
-    $publicacion = new Publicaciones($_REQUEST['codigo']);
-    $producto = new Productos($publicacion->getProducto());
+    //$publicacion = new Publicaciones($_REQUEST['codigo']);
+    $producto = new Productos($_REQUEST['codigo']);//$publicacion->getProducto());
     
     $calificaciones = new ListaCalificaciones();
     $calificaciones->setFiltroProducto($producto->getCodigo());

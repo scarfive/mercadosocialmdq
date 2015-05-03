@@ -10,13 +10,14 @@
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
-
     include_once("inc/util.php");
     include_once("inc/alerta.php");
     include_once("inc/conexion.php");
     include_once("inc/sesion.php");
     include_once("inc/usuarios.php");
     
+    $_ELEMENTOS_POR_PAGINA = 15;
+
     $alerta = NULL;
     
     $formulario = NULL;

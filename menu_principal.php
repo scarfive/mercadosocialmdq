@@ -42,12 +42,12 @@
     <li>
         <a href="?">
             <img src="img/feliz.png" />
-            Todas las publicaciones
+            Ver todo
         </a>
     </li>
     <li>
         <a href="?novedades=true">
-            <img src="img/estrella.png" />
+            <img src="img/bandera.png" />
             Novedades
         </a>
     </li>

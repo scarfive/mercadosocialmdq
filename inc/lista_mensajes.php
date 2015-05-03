@@ -14,6 +14,8 @@ class ListaMensajes {
     private $mensajes;
     private $filtro;
     private $orden;
+    private $inicio;
+    private $cantidad;
     private $agrupacion;
     private $puntero;
 
@@ -21,6 +23,8 @@ class ListaMensajes {
         $this->mensajes = array();
         $this->filtro = NULL;
         $this->orden = NULL;
+        $this->inicio = NULL;
+        $this->cantidad = NULL;
         $this->agrupacion = NULL;
         $this->puntero = 0;
     }
@@ -66,18 +70,29 @@ class ListaMensajes {
         $this->agrupacion = " GROUP BY de";
     }
     
+    public function setInicio($inicio) {
+        $this->inicio = $inicio;
+    }
+    
+    public function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
+    }
+    
     public function cargarLista() {
         $conn = new Conexion();
         $conn->conectar();
         $query = "SELECT codigo FROM mensajes";
-        if (!empty($this->filtro)) {
+        if (!is_null($this->filtro)) {
             $query .= $this->filtro;
         }
-        if (!empty($this->agrupacion)) {
+        if (!is_null($this->agrupacion)) {
             $query .= $this->agrupacion;
         }
-        if (!empty($this->orden)) {
+        if (!is_null($this->orden)) {
             $query .= $this->orden;
+        }
+        if (!is_null($this->inicio) && !is_null($this->cantidad)) {
+            $query .= " LIMIT ".$this->inicio.", ".$this->cantidad;
         }
         $this->mensajes = array();
         if (($result = $conn->ejecutar($query))) {
@@ -93,6 +108,19 @@ class ListaMensajes {
     
     public function getCantidad() {
         return sizeof($this->mensajes);
+    }
+    
+    public function getTotal() {
+        $conn = new Conexion();
+        $conn->conectar();
+        $query = "SELECT codigo FROM mensajes";
+        if (!is_null($this->filtro)) {
+            $query .= $this->filtro;
+        }
+        if ($conn->ejecutar($query)) {
+            return $conn->registros();
+        }
+        return FALSE;
     }
     
     public function getSiguienteOperacion() {

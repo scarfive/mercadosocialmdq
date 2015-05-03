@@ -49,7 +49,7 @@
     float: left;
     min-height: 200px;
     padding: 2% 0%;
-    width: 76%;
+    width: 80%;
 }
 
 #pie {
@@ -380,6 +380,18 @@ a:hover {
     color: #fff;
 }
 
+.listado .celda_titulo {
+    color: #323a45;
+}
+
+.listado .celda_info {
+    color: #666f7b;
+}
+
+.listado .celda_categorias {
+    color: #666f7b;
+}
+
 
 
 
@@ -428,12 +440,15 @@ li {
 }
 
 .listado .celda_info {
-    font-size: 0.9em;
-    font-style: italic;
+    font-size: 0.8em;
+}
+
+.listado .celda_categorias {
+    font-size: 0.8em;
 }
 
 .listado .celda_opciones {
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: bold;
 }
 
@@ -681,6 +696,12 @@ p > .ui-icono {
     padding-left: 25px;
 }
 
+.ui-enlace-mapa {
+    color: #9ea7b3;
+    font-size: 0.9em;
+    margin-left: 2em;
+}
+
 a.ui-boton {
     display: inline-block;
     margin-right: 20px;
@@ -911,6 +932,7 @@ input[type="file"] {
 .listado {
     border: none;
     border-collapse: collapse;
+    min-width: 700px;
     width: 100%;
 }
 
@@ -932,10 +954,14 @@ input[type="file"] {
 }
 
 .listado .celda_titulo {
-    width: 70%;
+    width: 50%;
 }
 
 .listado .celda_info {
+    width: 20%;
+}
+
+.listado .celda_categorias {
     width: 10%;
 }
 
@@ -1050,7 +1076,7 @@ input[type="file"] {
 .paginador {
     float: left;
     margin: 0% 3%;
-    width: 100%;
+    width: 90%;
 }
 
 .paginador ul {

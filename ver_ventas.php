@@ -22,6 +22,16 @@
     }
     
     $operaciones->setFiltroVendedor($sesion->get_user_id());
+    
+    if (validRequest('inicio')) {
+        $operaciones->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $operaciones->setInicio(0);
+    }
+    
+    $operaciones->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
     $operaciones->cargarLista();
 ?>
 
@@ -73,6 +83,11 @@
             }
             
             print '</div>';
+        }
+        
+        if (validRequest('cantidad')) {
+            $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $operaciones->getTotal());
+            $paginador->show();
         }
         
     }

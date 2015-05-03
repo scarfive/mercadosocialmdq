@@ -35,7 +35,7 @@
         $en_vistas = new Enlace('vistas', $publicacion->getVistas().' vistas', '?include=publicacion&form=datos_producto&codigo='.$publicacion->getCodigo());
         $en_vistas->add_class('ui-enlace-icono ui-icono-vista');
 
-        $en_calif = new Enlace('calificacion', redondeo($producto->getCalificacion()).' de 5 puntos', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+        $en_calif = new Enlace('calificacion', redondeo($producto->getCalificacion()).' de 5 puntos', '?include=publicacion&form=datos_producto&codigo='.$publicacion->getCodigo());
         $en_calif->add_class('ui-enlace-icono ui-icono-estrella');
 
         $en_comen = new Enlace('comentarios', $producto->getComentarios().' comentarios', '?include=publicacion&form=datos_producto&codigo='.$publicacion->getCodigo());

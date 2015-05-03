@@ -18,12 +18,25 @@
     include_once('inc/usuarios.php');
     include_once('inc/mensajes.php');
     include_once('inc/lista_mensajes.php');
+    include_once('inc/paginador.php');
     
     $usuario = new Usuarios($_REQUEST['codigo']);
     
     $mensajes = new ListaMensajes();
+    
     $mensajes->setFiltroEntre($sesion->get_user_id(), $usuario->getCodigo());
+    
     $mensajes->setOrdenCodigo('DESC');
+    
+    if (validRequest('inicio')) {
+        $mensajes->setInicio($_REQUEST['inicio']);
+    }
+    else {
+        $mensajes->setInicio(0);
+    }
+    
+    $mensajes->setCantidad($_ELEMENTOS_POR_PAGINA);
+    
     $mensajes->cargarLista();
 ?>
 
@@ -107,6 +120,9 @@
                 $mensaje->update();
             }
         }
+        
+        $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $mensajes->getTotal());
+        $paginador->show();
     
     }
 ?>

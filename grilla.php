@@ -17,8 +17,6 @@ include_once('inc/usuarios.php');
 include_once('inc/enlace.php');
 include_once('inc/paginador.php');
 
-$_CANTIDAD = 15;
-
 $publicaciones = new ListaPublicaciones();
 $publicaciones->setFiltroActivas();
 
@@ -71,7 +69,7 @@ if (validRequest('cantidad')) {
     $publicaciones->setCantidad($_REQUEST['cantidad']);
 }
 else {
-    $publicaciones->setCantidad($_CANTIDAD);
+    $publicaciones->setCantidad($_ELEMENTOS_POR_PAGINA);
 }
 
 $publicaciones->cargarLista();
@@ -89,6 +87,6 @@ $publicaciones->cargarLista();
 </div>
 
 <?php
-    $paginador = new Paginador($_CANTIDAD, $publicaciones->getTotal());
+    $paginador = new Paginador($_ELEMENTOS_POR_PAGINA, $publicaciones->getTotal());
     $paginador->show();
 ?>
