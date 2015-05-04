@@ -7,12 +7,19 @@
         }
         
         public function login() {
-            $query = "SELECT codigo, clave FROM usuarios WHERE apodo = '".$_REQUEST['u']."' AND clave = MD5('".$_REQUEST['p']."')";
+            $query = "SELECT codigo FROM usuarios WHERE apodo = '".$_REQUEST['u']."' AND clave = MD5('".$_REQUEST['p']."')";
             $result = mysql_query($query);
             if ($result && mysql_num_rows($result) > 0) {
+                $intervalo = time() + 7*24*60*60;
+                $id_sesion = getRandomId();
                 $row = mysql_fetch_array($result);
-                setcookie("session_haybale", $row[0], time() + 604800, "/");
-                setcookie("session_harvest", $row[1], time() + 604800, "/");
+                $codigo_usuario = $row[0];
+                $query = "UPDATE usuarios SET conexion = ".$id_sesion." WHERE codigo = ".$codigo_usuario;
+                if (!mysql_query($query)) {
+                    return FALSE;
+                }
+                setcookie("session_haybale", $codigo_usuario, $intervalo, "/");
+                setcookie("session_harvest", $id_sesion, $intervalo, "/");
                 return TRUE;
             }
             return FALSE;
