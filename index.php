@@ -111,6 +111,7 @@
 ?>
 <!DOCTYPE HTML>
 <html lang="es">
+    
     <head>
         <title>Mercado Social MDQ</title>
         <meta name="generator" content="Netbeans IDE 8.0.2 (2015)">
@@ -121,7 +122,9 @@
         <script type="text/javascript" src="principal.js"></script>
         <link href="estilo.css" rel="stylesheet" type="text/css">
     </head>
+    
     <body>
+    
         <div id="contenedor">
             
             <?php include_once("encabezado.php"); ?>
@@ -144,9 +147,10 @@
                 }
             ?>
             
-            <?php //include_once("lateral_der.php"); ?>
-            <?php //include_once("pie.php"); ?>
-            
         </div>
+            
+        <?php include_once("pie.php"); ?>
+        
     </body>
+    
 </html>

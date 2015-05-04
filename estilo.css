@@ -26,7 +26,7 @@
 
 #contenedor {
     margin: 0px auto;
-    min-height: 200px;
+    height: 100%;
 }
 
 .lateral {
@@ -51,9 +51,12 @@
 }
 
 #pie {
-    background-color: #000;
-    min-height: 200px;
+    background-color: #9ea7b3;
+    border-bottom: 1em solid #323a45;
+    height: 6em;
+    float: left;
     padding: 2% 0%;
+    text-align: center;
     width: 100%;
 }
 
@@ -251,6 +254,10 @@ p.publicacion_info {
     width: 22px;
 }
 
+#pie p {
+    margin: 0.2em 0em;
+}
+
 /*
     COLORES
 */
@@ -261,6 +268,7 @@ p.publicacion_info {
 
 body {
     background-color: #eaedf1;
+    height: 100%;
 }
 
 .barra {
@@ -501,6 +509,10 @@ li {
 
 .contador {
     font-size: 0.9em;
+}
+
+#pie p {
+    font-size: 0.7em;
 }
 
 /*
@@ -906,7 +918,7 @@ input[type="file"] {
 */
 
 #barra_mensajes {
-    background-color: #a40;
+    background-color: #f27935;
     float: left;
     font-size: 0.9em;
     font-weight: bolder;
@@ -915,7 +927,30 @@ input[type="file"] {
 }
 
 #barra_mensajes p {
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
     color: #fff;
+    display: block;
+    height: 3em;
+    line-height: 3em;
+    margin: 0px;
+    padding: 0px;
+}
+
+#barra_mensajes .alerta {
+    background-color: #f26d00;
+}
+
+#barra_mensajes .exito {
+    background-color: #666f7b;
+}
+
+#barra_mensajes .error {
+    background-color: #df4d12;
+}
+
+#barra_mensajes .info {
+    background-color: #9ea7b3;
 }
 
 /*
