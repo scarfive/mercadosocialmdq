@@ -33,6 +33,7 @@ $producto = new Productos();
 
 if (empty($error)) {
     
+    $producto->setCodigo(getRandomId());
     $producto->setDescripcion($_REQUEST['descripcion']);
     $producto->setResumen($_REQUEST['resumen']);
     $producto->setPrecio($_REQUEST['precio']);

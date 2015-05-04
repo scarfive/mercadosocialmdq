@@ -49,6 +49,7 @@ if (isset($_REQUEST['correo']) && $conexion->verificar($usuario->verificarCorreo
 
 if (empty($error)) {
     
+    $usuario->setCodigo(getRandomId());
     $usuario->setApellido($_REQUEST['apellido']);
     $usuario->setNombre($_REQUEST['nombre']);
     $usuario->setApodo($_REQUEST['apodo']);
