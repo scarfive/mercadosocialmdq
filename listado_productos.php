@@ -29,102 +29,113 @@
     ?>
 </div>
 
-<table class="listado">
+<div class="cuadro_listado">
     
-    <?php
-        if (empty($arr_productos)) {
-            print '<h1>Todav&iacute;a no tiene productos guardados</h1>';
-            print '<p>&nbsp;</p>';
-            print '<p>Haga click en <i><b><a href="?include=usuario&form=agregar">agregar producto</a></b></i> para comenzar a guardar los productos que quiera vender.</p>';
-            print '<p>Luego podr&aacute; verlos en esta secci&oacute;n y modificarlos.</p>';
-            print '<p>Tambi&eacute;n necesita guardar productos para poder publicarlos.</p>';
-        }
-        else {
-            $par = 0;
-            
-            foreach ($arr_productos as $producto) {
-                
-                $publicacion = NULL;
-                
-                $publicado = $producto->is_published();
-                
-                if($publicado) {
-                    $publicacion = new Publicaciones($producto->getPublicacion());
-                }
-                
-                $img = $producto->getImagenes();
-                
-                print '<tr class="';
-                if ($par % 2) {
-                    print 'fila_impar';
-                }
-                else {
-                    print 'fila_par';
-                }
-                print '">';
-                
-                print '<td class="celda_imagen">'.getImagen($img[0]['imagen'], 'img_preview').'</td>';
-                
-                print '<td class="celda_titulo">'.$producto->getDescripcion().'</td>';
-                
-                print '<td class="celda_info">';
-                
-                if ($publicado) {
-                    $en_vistas = new Enlace('vistas', $publicacion->getVistas().' vistas', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
-                    $en_vistas->add_class('ui-enlace-icono ui-icono-vista');
-                    $en_vistas->show();
-                }
-                
-                $en_calif = new Enlace('calificacion', redondeo($producto->getCalificacion()).' de 5 puntos', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
-                $en_calif->add_class('ui-enlace-icono ui-icono-estrella');
-                $en_calif->show();
+    <table class="listado">
 
-                $en_comen = new Enlace('comentarios', $producto->getComentarios().' comentarios', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
-                $en_comen->add_class('ui-enlace-icono ui-icono-mensaje');
-                $en_comen->show();
-                
-                print '</td>';
-                
-                $categorias = '';
-                
-                foreach ($producto->getCategorias() as $cat) {
-                    $categorias .= $cat['descripcion'].'<br>';
-                }
-                
-                print '<td class="celda_categorias">'.quitarUltimoCaracter($categorias).'</td>';
-                
-                print '<td class="celda_opciones">';
-                
-                if (!$publicado) {
-                
-                    $enl_editar = new Enlace('editar', 'Editar', '?include=usuario&form=edicion_producto&codigo='.$producto->getCodigo());
-                    $enl_editar->add_class('ui-enlace-icono ui-icono-lapiz');
-                    $enl_editar->show();
-
-                    $enl_publicar = new Enlace('publicar', 'Publicar', '?include=usuario&form=publicacion_producto&codigo='.$producto->getCodigo());
-                    $enl_publicar->add_class('ui-enlace-icono ui-icono-feliz');
-                    $enl_publicar->show();
-
-                    $enl_borrar = new Enlace('borrar', 'Borrar', '?include=usuario&form=borrar_producto&codigo='.$producto->getCodigo());
-                    $enl_borrar->add_class('ui-enlace-icono ui-icono-cruz');
-                    $enl_borrar->show();
-                
-                }
-                else {
-                    
-                    $enl_pub = new Enlace('ver', 'Publicado', '?include=usuario&form=ver_publicacion&codigo='.$publicacion->getCodigo());
-                    $enl_pub->add_class('ui-enlace-icono ui-icono-candado');
-                    $enl_pub->show();
-                    
-                }
-                
-                print '</td>';
-                
-                print '</tr>';
-                
-                $par++;
+        <?php
+            if (empty($arr_productos)) {
+                print '<h1>Todav&iacute;a no tiene productos guardados</h1>';
+                print '<p>&nbsp;</p>';
+                print '<p>Haga click en <i><b><a href="?include=usuario&form=agregar">agregar producto</a></b></i> para comenzar a guardar los productos que quiera vender.</p>';
+                print '<p>Luego podr&aacute; verlos en esta secci&oacute;n y modificarlos.</p>';
+                print '<p>Tambi&eacute;n necesita guardar productos para poder publicarlos.</p>';
             }
-        }
-    ?>
+            else {
+                $par = 0;
+
+                foreach ($arr_productos as $producto) {
+
+                    $publicacion = NULL;
+
+                    $publicado = $producto->is_published();
+
+                    if($publicado) {
+                        $publicacion = new Publicaciones($producto->getPublicacion());
+                    }
+
+                    $img = $producto->getImagenes();
+
+                    print '<tr class="';
+                    if ($par % 2) {
+                        print 'fila_impar';
+                    }
+                    else {
+                        print 'fila_par';
+                    }
+                    print '">';
+
+                    print '<td class="celda_imagen">'.getImagen($img[0]['imagen'], 'img_preview').'</td>';
+
+                    print '<td class="celda_titulo">';
+                    print '<p class="titulo_descripcion">'.$producto->getDescripcion().'</p>';
+
+                    if ($publicado) {
+                        print '<p class="titulo_info">Finaliza en '.fechaRelativa($publicacion->getLimite()).' d&iacute;as</p>';
+                    }
+
+                    print '';'</td>';
+
+                    print '<td class="celda_info">';
+
+                    if ($publicado) {
+                        $en_vistas = new Enlace('vistas', $publicacion->getVistas().' vistas', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                        $en_vistas->add_class('ui-enlace-icono ui-icono-vista');
+                        $en_vistas->show();
+                    }
+
+                    $en_calif = new Enlace('calificacion', redondeo($producto->getCalificacion()).' de 5 puntos', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                    $en_calif->add_class('ui-enlace-icono ui-icono-estrella');
+                    $en_calif->show();
+
+                    $en_comen = new Enlace('comentarios', $producto->getComentarios().' comentarios', '?include=publicacion&form=datos_producto&codigo='.$producto->getCodigo());
+                    $en_comen->add_class('ui-enlace-icono ui-icono-mensaje');
+                    $en_comen->show();
+
+                    print '</td>';
+
+                    $categorias = '';
+
+                    foreach ($producto->getCategorias() as $cat) {
+                        $categorias .= $cat['descripcion'].'<br>';
+                    }
+
+                    print '<td class="celda_categorias">'.quitarUltimoCaracter($categorias).'</td>';
+
+                    print '<td class="celda_opciones">';
+
+                    if (!$publicado) {
+
+                        $enl_editar = new Enlace('editar', 'Editar', '?include=usuario&form=edicion_producto&codigo='.$producto->getCodigo());
+                        $enl_editar->add_class('ui-enlace-icono ui-icono-lapiz');
+                        $enl_editar->show();
+
+                        $enl_publicar = new Enlace('publicar', 'Publicar', '?include=usuario&form=publicacion_producto&codigo='.$producto->getCodigo());
+                        $enl_publicar->add_class('ui-enlace-icono ui-icono-feliz');
+                        $enl_publicar->show();
+
+                        $enl_borrar = new Enlace('borrar', 'Borrar', '?include=usuario&form=producto_borrado&codigo='.$producto->getCodigo());
+                        $enl_borrar->add_class('ui-enlace-icono ui-icono-cruz');
+                        $enl_borrar->show();
+
+                    }
+                    else {
+
+                        $enl_pub = new Enlace('ver', 'Publicado', '?include=usuario&form=ver_publicacion&codigo='.$publicacion->getCodigo());
+                        $enl_pub->add_class('ui-enlace-icono ui-icono-candado');
+                        $enl_pub->show();
+
+                    }
+
+                    print '</td>';
+
+                    print '</tr>';
+
+                    $par++;
+                }
+            }
+        ?>
+
+    </table>
     
-</table>
+</div>

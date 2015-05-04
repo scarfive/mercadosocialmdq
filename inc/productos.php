@@ -262,7 +262,13 @@ class Productos {
     /* Metodo Delete */
 
     function delete() {
-        return "DELETE FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
+        $query = "DELETE FROM " . $this->table . " WHERE codigo = " . $this->fields["codigo"]["value"];
+        $conn = new Conexion();
+        $conn->conectar();
+        if (!$conn->ejecutar($query)) {
+            return FALSE;
+        }
+        return TRUE;
     }
     
     private function agregarCategorias($conn, $codigo_producto) {

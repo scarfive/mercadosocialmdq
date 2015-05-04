@@ -24,6 +24,7 @@
     
     $compras_pendientes = $operaciones->getCantidad();
     
+    $operaciones->borrarFiltro();
     $operaciones->setFiltroConcretadas();
     $operaciones->setFiltroVendedor($sesion->get_user_id());
     $operaciones->cargarLista();

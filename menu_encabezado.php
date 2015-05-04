@@ -10,14 +10,20 @@
     License    : GPLv3
 */
 
+    include_once('inc/imagen.php');
     include_once('inc/enlace.php');
+    include_once('inc/enlace_imagen.php');
 
 ?>
 <div id="menu_encabezado">
     
     <?php
         if($sesion->is_logged()) {
-            $en_usuario = new Enlace('usuario', $usuario->getApodo(), '?include=usuario&form=panel');
+            $img = 'img/sin-usuario.png';
+            if (!empty($usuario->getImagen())) {
+                $img = $usuario->getImagen();
+            }
+            $en_usuario = new EnlaceImagen('usuario', $usuario->getApodo(), $img, '?include=usuario&form=panel&codigo='.$usuario->getCodigo());
             $en_usuario->show();
             print '&nbsp;&nbsp;&nbsp;';
             $en_salir = new Enlace('salir', 'salir', '?salir=salir');

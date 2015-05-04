@@ -59,6 +59,9 @@
         elseif (isset($_REQUEST['editar-producto'])) {
             include_once('inc/editar_producto.php');
         }
+        elseif (isset($_REQUEST['borrar-producto'])) {
+            include_once('inc/borrar_producto.php');
+        }
         elseif (isset($_REQUEST['publicar-producto'])) {
             include_once('inc/publicar_producto.php');
         }

@@ -9,4 +9,5 @@
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
+    include('ver_usuario.php');
 ?>

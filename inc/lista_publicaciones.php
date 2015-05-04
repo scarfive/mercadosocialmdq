@@ -51,7 +51,7 @@ class ListaPublicaciones {
     
     public function busquedaPorDescripcion($busqueda) {
         $this->verificarFiltro();
-        $this->filtro ." producto IN (SELECT codigo FROM productos WHERE descripcion LIKE '%".$busqueda."%')";
+        $this->filtro .= " producto IN (SELECT codigo FROM productos WHERE descripcion LIKE '%".$busqueda."%')";
     }
     
     public function setOrdenPrecio($dir = 'ASC') {

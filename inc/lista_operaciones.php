@@ -65,6 +65,7 @@ class ListaOperaciones {
     }
     
     public function cargarLista() {
+        $this->operaciones = array();
         $conn = new Conexion();
         $conn->conectar();
         $query = "SELECT codigo FROM operaciones";

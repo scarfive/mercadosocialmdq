@@ -9,6 +9,7 @@
     Author     : Juan Manuel Scarciofolo
     License    : GPLv3
 */
+    include_once('inc/imagen.php');
     include_once('inc/usuarios.php');
     include_once('inc/zonas.php');
     include_once('inc/puntaje_usuario.php');
@@ -61,6 +62,14 @@
 ?>
     
 <h1>Ficha personal de <?php print $usuario->getApodo(); ?></h1>
+
+<p><?php print $usuario->getResumen(); ?></p>
+
+<?php
+    $imagen = new Imagen($usuario->getImagen());
+    $imagen->set_class('img_view');
+    $imagen->show();
+?>
 
 <p>&nbsp;</p>
 

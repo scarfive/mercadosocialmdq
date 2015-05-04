@@ -9,23 +9,22 @@
   Author     : Juan Manuel Scarciofolo
   License    : GPLv3
  */
-    class Imagen {
-        
-        private $image = NULL;
-        private $class = 'imagen imagen-muestra';
+class Imagen {
 
-        public function __construct($image) {
-            $this->image = $image;
-        }
-        
-        public function set_class($class) {
-            $this->class = $class;
-        }
+    private $image = NULL;
+    private $class = 'imagen imagen-muestra';
 
-        public function show() {
-            print '<img class="'.$this->class.'" src="'.(empty($this->image) ? 'images/sin-imagen.png' : $this->image).'" />';
-        }
-        
+    public function __construct($image) {
+        $this->image = $image;
     }
 
+    public function set_class($class) {
+        $this->class = $class;
+    }
+
+    public function show() {
+        print '<img class="'.$this->class.'" src="'.(empty($this->image) ? 'img/sin-imagen.png' : $this->image).'" />';
+    }
+
+}
 ?>
