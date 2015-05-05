@@ -81,17 +81,19 @@
         $en_cancelar->show();
     }
     else {
-        $en_comprar = new Enlace('comprar', 'Comprar producto', '?include=usuario&form=compra_confirmacion&codigo='.$_REQUEST['codigo']);
-        $en_comprar->add_class('ui-boton ui-boton-azul');
-        $en_comprar->show();
-
-        $en_preguntar = new Enlace('preguntar', 'Hacer una pregunta', '?include=usuario&form=realizar_pregunta&codigo='.$_REQUEST['codigo']);
-        $en_preguntar->add_class('ui-boton ui-boton-naranja');
-        $en_preguntar->show();
-
-        $en_denunciar = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&publicacion=true&codigo='.$_REQUEST['codigo']);
-        $en_denunciar->add_class('ui-boton ui-boton-verde');
-        $en_denunciar->show();
+        if ($session->is_logged()) {
+            $en_comprar = new Enlace('comprar', 'Comprar producto', '?include=usuario&form=compra_confirmacion&codigo='.$_REQUEST['codigo']);
+            $en_comprar->add_class('ui-boton ui-boton-azul');
+            $en_comprar->show();
+    
+            $en_preguntar = new Enlace('preguntar', 'Hacer una pregunta', '?include=usuario&form=realizar_pregunta&codigo='.$_REQUEST['codigo']);
+            $en_preguntar->add_class('ui-boton ui-boton-naranja');
+            $en_preguntar->show();
+    
+            $en_denunciar = new Enlace('denunciar', 'Denunciar', '?include=usuario&form=realizar_denuncia&publicacion=true&codigo='.$_REQUEST['codigo']);
+            $en_denunciar->add_class('ui-boton ui-boton-verde');
+            $en_denunciar->show();
+        }
     }
 ?>
 
