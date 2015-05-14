@@ -247,7 +247,6 @@ class Productos {
         $handler = new ImageHandler('imagenes', 3);
         if ($handler->loadImages()) {
             $arr_img = $handler->getImageNames();
-            print_r($arr_img);
             $query = "INSERT INTO img_productos (imagen, producto) VALUES ";
             foreach ($arr_img as $img) {
                 $query .= "('".$img."', ".$codigo_producto."),";
